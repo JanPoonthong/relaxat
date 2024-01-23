@@ -5,7 +5,7 @@ import SideBar from "../ui/home/side-bar";
 export default async function Page() {
     return (
         <div className="flex pt-12 gap-[6rem]">
-            <SideBar /> 
+            <SideBar />
             <IncomeSummary />
         </div>
     );
