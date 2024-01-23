@@ -4,7 +4,7 @@ import UserBox from "./user-box";
 
 export default function NavBar() {
     return (
-        <nav className="flex justify-between items-center pl-12 pr-12">
+        <nav className="flex justify-between items-center">
             <div className="logo-searchbox flex gap-[10rem] items-center">
                 <Link
                     className="uppercase logo-color font-bold text-3xl"

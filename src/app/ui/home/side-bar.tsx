@@ -57,20 +57,20 @@ export default function SideBar() {
     ];
 
     return (
-        <div className="flex w-[15rem] justify-center items-center">
+        <div className="flex justify-center items-center">
             <ul className="flex gap-10 flex-col justify-center text-center side-bar">
                 {sideBarData.map((each) => {
                     return (
-                            <li key={each.text} className="side-bar-active">
-                                <a className="flex items-center gap-3" href="#">
-                                    <div
-                                        dangerouslySetInnerHTML={{
-                                            __html: each.svg,
-                                        }}
-                                    />
-                                    {each.text}
-                                </a>
-                            </li>
+                        <li key={each.text} className="side-bar-active">
+                            <a className="flex items-center gap-3" href="#">
+                                <div
+                                    dangerouslySetInnerHTML={{
+                                        __html: each.svg,
+                                    }}
+                                />
+                                {each.text}
+                            </a>
+                        </li>
                     );
                 })}
             </ul>
