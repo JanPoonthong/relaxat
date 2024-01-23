@@ -19,7 +19,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={`${poppins.className} max-w-[100rem] ml-auto mr-auto`}
+                className={`${poppins.className} max-w-[180ex] ml-auto mr-auto`}
             >
                 <NavBar />
                 {children}
