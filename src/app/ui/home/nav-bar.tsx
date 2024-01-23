@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link";
 import SearchBox from "./search-box";
 import UserBox from "./user-box";
