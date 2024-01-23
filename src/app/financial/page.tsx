@@ -8,10 +8,10 @@ export default async function Page() {
     return (
         <div className="flex gap-[6rem]">
             <SideBar />
-            <div className="flex justify-between w-full pt-12">
+            <div className="flex justify-between w-full pt-12 flex-wrap">
                 <IncomeSummary />
                 <Export />
-                <div className="w-full">
+                <div className="basis-full border-slate-300 border rounded-md">
                     <IncomeSummaryGraph />
                 </div>
             </div>

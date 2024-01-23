@@ -1,5 +1,4 @@
-"use client"
-
+"use client";
 
 export default function IncomeSummary() {
     return (

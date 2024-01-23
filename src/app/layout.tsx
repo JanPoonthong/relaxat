@@ -18,9 +18,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body
-                className={`${poppins.className} pl-10 pr-10`}
-            >
+            <body className={`${poppins.className} pl-10 pr-10`}>
                 <NavBar />
                 {children}
             </body>

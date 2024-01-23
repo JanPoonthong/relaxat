@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 export default function SideBar() {
     const sideBarData = [
@@ -59,7 +59,7 @@ export default function SideBar() {
     ];
 
     return (
-        <div className="flex items-center pt-12">
+        <div className="flex items-center pt-12 h-full">
             <ul className="flex gap-10 flex-col justify-center text-center side-bar">
                 {sideBarData.map((each) => {
                     return (
