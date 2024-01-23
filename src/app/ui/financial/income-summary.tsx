@@ -1,7 +1,7 @@
 export default function IncomeSummary() {
     return (
         <>
-            <h1>Income summary</h1>
+            <h1 className="font-bold text-2xl">Income summary</h1>
         </>
     );
 }

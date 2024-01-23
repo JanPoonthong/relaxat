@@ -57,7 +57,7 @@ export default function SideBar() {
     ];
 
     return (
-        <div className="flex w-[15rem] justify-center items-center pt-12">
+        <div className="flex w-[15rem] justify-center items-center">
             <div className="flex gap-10 flex-col justify-center text-center">
                 {sideBarData.map((each) => {
                     return (
