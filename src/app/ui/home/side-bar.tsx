@@ -61,7 +61,7 @@ export default function SideBar() {
             <div className="flex gap-10 flex-col justify-center text-center">
                 {sideBarData.map((each) => {
                     return (
-                        <div key={each.text} className="flex items-center">
+                        <div key={each.text} className="flex items-center gap-3">
                             <div
                                 dangerouslySetInnerHTML={{ __html: each.svg }}
                             />
