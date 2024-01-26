@@ -6,15 +6,18 @@ import IncomeSummaryGraph from "../ui/home/income-summary-graph";
 
 export default async function Page() {
     return (
-        <div className="flex gap-[6rem]">
-            <SideBar />
-            <div className="flex justify-between w-full pt-12 flex-wrap">
-                <IncomeSummary />
-                <Export />
-                <div className="basis-full border-slate-300 border rounded-md">
-                    <IncomeSummaryGraph />
+        <>
+            <NavBar />
+            <div className="flex gap-[6rem]">
+                <SideBar />
+                <div className="flex justify-between w-full pt-12 flex-wrap">
+                    <IncomeSummary />
+                    <Export />
+                    <div className="basis-full border-slate-300 border rounded-md">
+                        <IncomeSummaryGraph />
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }

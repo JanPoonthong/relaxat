@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 export default function SideBar() {
     const sideBarData = [
@@ -64,14 +65,17 @@ export default function SideBar() {
                 {sideBarData.map((each) => {
                     return (
                         <li key={each.text} className="side-bar-active">
-                            <a className="flex items-center gap-3" href="#">
+                            <Link
+                                className="flex items-center gap-3"
+                                href={each.text.toLowerCase()}
+                            >
                                 <div
                                     dangerouslySetInnerHTML={{
                                         __html: each.svg,
                                     }}
                                 />
                                 {each.text}
-                            </a>
+                            </Link>
                         </li>
                     );
                 })}

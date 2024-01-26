@@ -14,10 +14,9 @@ export default function NavBar() {
                 >
                     Relaxat
                 </Link>
-                <SearchBox/>
+                <SearchBox />
             </div>
-            <UserBox/>
-
+            <UserBox />
         </nav>
     );
 }
