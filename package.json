@@ -10,6 +10,9 @@
         "format": "prettier --tab-width 4 --write ."
     },
     "dependencies": {
+        "@fullcalendar/core": "^6.1.10",
+        "@fullcalendar/daygrid": "^6.1.10",
+        "@fullcalendar/react": "^6.1.10",
         "bootstrap-icons": "^1.11.3",
         "next": "14.1.0",
         "react": "^18",
