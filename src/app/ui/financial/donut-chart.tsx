@@ -4,10 +4,14 @@ import { Chart } from "react-google-charts";
 
 const data = [
     ["Service", "Service used"],
-    ["Haircut", 64],
+    ["Haircut", 200],
     ["Message", 55],
     ["Nail", 60],
 ];
+
+export const total = data
+    .slice(1)
+    .reduce((acc, [, value]) => acc + Number(value), 0);
 
 const options = {
     pieHole: 0.4,
@@ -19,12 +23,12 @@ const options = {
     },
 };
 
-export default function DonutChart() {
+export function DonutChart() {
     return (
         <Chart
             chartType="PieChart"
             width="100%"
-            height="350px"
+            height="300px"
             data={data}
             options={options}
         />
