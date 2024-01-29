@@ -60,7 +60,7 @@ export default function SideBar() {
     ];
 
     return (
-        <div className="flex items-center pt-12 h-full">
+        <div className="flex items-center pt-12 h-full ml-5">
             <ul className="flex gap-10 flex-col justify-center text-center side-bar">
                 {sideBarData.map((each) => {
                     return (
