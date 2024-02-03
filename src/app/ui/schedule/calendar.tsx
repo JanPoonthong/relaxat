@@ -18,6 +18,34 @@ export default function Calendar() {
         }
     };
 
+    function renderEventContent(eventInfo:any) {
+        const formatTimeStart = eventInfo.event.start.toLocaleString("en-US", {
+          timeZone: "Asia/Bangkok",
+          hour: "numeric",
+          hour12: true,
+        })
+
+        const formatTimeEnd = eventInfo.event.end.toLocaleString("en-US", {
+          timeZone: "Asia/Bangkok",
+          hour: "numeric",
+          hour12: true,
+        })
+
+          return (
+                  <>
+                    <i>{formatTimeStart} - {formatTimeEnd}</i>
+                    <br />
+                    <b>{eventInfo.event.title}</b>
+                    <br/>
+              {eventInfo.event.extendedProps.description.map((each: string, index: number) => (
+                  <div key={index}>
+                            <i key={index}>* {each}</i>
+                  </div>
+                ))}
+                  </>
+                )
+    }
+
     return (
         <>
             <FullCalendar
@@ -29,8 +57,9 @@ export default function Calendar() {
                         // right: 'dayGridMonth,timeGridWeek,timeGridDay',
                     }
                 }
-                initialView="timeGridDay"
+                initialView="timeGridWeek"
                 allDaySlot={false}
+                slotDuration={'00:15:00'}
                 // ... other options
                 // editable={true}
                 // selectable={true}
@@ -47,6 +76,7 @@ export default function Calendar() {
             eventChange={function(){}}
             eventRemove={function(){}}
             */
+        eventContent={renderEventContent}
             />
         </>
     );
