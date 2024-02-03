@@ -8,8 +8,8 @@ export const INITIAL_EVENTS = [
               extendedProps: {
                 description: ['Haircut', 'Nail'],
               },
-        start: todayStr + "T12:00:00",
-        end: todayStr + "T13:00:00",
+        start: todayStr + "T09:00:00",
+        end: todayStr + "T10:00:00",
     },
 ];
 

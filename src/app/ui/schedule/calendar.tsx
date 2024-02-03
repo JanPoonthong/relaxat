@@ -59,7 +59,10 @@ export default function Calendar() {
                 }
                 initialView="timeGridWeek"
                 allDaySlot={false}
+                height={800}
                 slotDuration={'00:15:00'}
+                slotMaxTime={"17:00:00"}
+                slotMinTime={"09:00:00"}
                 // ... other options
                 // editable={true}
                 // selectable={true}
@@ -69,7 +72,7 @@ export default function Calendar() {
                 initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
                 // select={this.handleDateSelect}
                 // eventContent={renderEventContent} // custom render function
-                eventClick={(clickInfo) => handleEventClick(clickInfo)}
+                // eventClick={(clickInfo) => handleEventClick(clickInfo)}
                 // eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
                 /* you can update a remote database when these fire:
             eventAdd={function(){}}
