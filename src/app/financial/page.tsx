@@ -13,7 +13,7 @@ export default async function Page() {
             <NavBar />
             <div className="flex gap-[6rem]">
                 <SideBar />
-                <div className="flex justify-between w-full pt-12 flex-wrap">
+                <div className="flex justify-between w-full pt-12 flex-wrap mr-5">
                     <IncomeSummary />
                     <Export />
                     <Border>

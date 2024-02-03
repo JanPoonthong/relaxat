@@ -8,16 +8,8 @@ body {
     /*padding-top: 1rem;*/
 }
 
-.side-bar li.active {
-    fill: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0.35) 0%,
-        rgba(105, 75, 189, 0.41) 95.27%
-    );
-}
-
-.side-bar-active {
-    fill: linear-gradient(
+.side-bar {
+    background: linear-gradient(
         90deg,
         rgba(255, 255, 255, 0.35) 0%,
         rgba(105, 75, 189, 0.41) 95.27%

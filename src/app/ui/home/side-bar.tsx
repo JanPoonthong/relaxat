@@ -1,7 +1,9 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function SideBar() {
+    const pathname = usePathname();
     const sideBarData = [
         {
             svg: `<svg
@@ -61,12 +63,12 @@ export default function SideBar() {
 
     return (
         <div className="flex items-center pt-12 h-full ml-5">
-            <ul className="flex gap-10 flex-col justify-center text-center side-bar">
+            <ul className="flex gap-10 flex-col justify-center text-center w-[10rem]">
                 {sideBarData.map((each) => {
                     return (
-                        <li key={each.text} className="side-bar-active">
+                        <li key={each.text}>
                             <Link
-                                className="flex items-center gap-3"
+                                className={`${pathname === "/" + each.text.toLowerCase() && "side-bar"} flex items-center gap-3 h-14 rounded-xl p-2"`}
                                 href={each.text.toLowerCase()}
                             >
                                 <div
