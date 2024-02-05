@@ -6,8 +6,8 @@ import { useState } from "react";
 
 export default function Footer() {
     const [showImg, setShowImg] = useState(false);
-    function onClickHandler() {
-        setShowImg(true);
+    function onClickHandler(bool: boolean) {
+        setShowImg(bool);
     }
     return (
         <div className="flex gap-5 justify-between items-center">
@@ -15,7 +15,7 @@ export default function Footer() {
                 Banned
             </Link>
             <div className="flex gap-3 justify-around items-center">
-                <button onClick={() => onClickHandler()} className="underline">
+                <button onClick={() => onClickHandler(true)} className="underline">
                     ref
                 </button>
                 <button className="bg-slate-500 hover:bg-slate-600 text-white font-bold py-1 px-2 rounded">
@@ -26,7 +26,8 @@ export default function Footer() {
                 </button>
             </div>
             <div className="absolute top-2/4 left-2/4 translate-y-[-50%] translate-x-[-50%]">
-                {showImg && (
+                {showImg && (<>
+                    <button onClick={() => onClickHandler(false)} className="text-xl text-red-500">X</button>
                     <Image
                         src="/haricut_ref.png"
                         className="blur-img"
@@ -34,6 +35,7 @@ export default function Footer() {
                         height={480}
                         alt="haircut ref"
                     />
+                    </>
                 )}
             </div>
         </div>
