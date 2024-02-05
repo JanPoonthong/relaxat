@@ -2,7 +2,7 @@
 
 export default function Export() {
     const handleClick = () => {
-        alert("You're gay");
+        alert("Export");
     };
     return (
         <div className="">

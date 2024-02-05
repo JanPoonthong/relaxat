@@ -16,6 +16,7 @@
         "@fullcalendar/react": "^6.1.10",
         "@fullcalendar/timegrid": "^6.1.10",
         "@headlessui/react": "^1.7.18",
+        "@heroicons/react": "^2.1.1",
         "bootstrap": "^5.3.2",
         "bootstrap-icons": "^1.11.3",
         "next": "14.1.0",

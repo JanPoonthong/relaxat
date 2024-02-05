@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 const data = [
     { id: 1, first: "Mark", last: "Otto", service: "Haircut" },
@@ -31,6 +32,9 @@ export default function Table() {
                         <th scope="col" className="px-6 py-3">
                             Most used service
                         </th>
+                        <th scope="col" className="px-6 py-3">
+                            Info
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,6 +50,16 @@ export default function Table() {
                                 <td className="px-6 py-4">{each.first}</td>
                                 <td className="px-6 py-4">{each.last}</td>
                                 <td className="px-6 py-4">{each.service}</td>
+                                <td className="px-6 py-4">
+                                    <Link
+                                        href={{
+                                            pathname: `/customer/${each.first.toLowerCase()}${each.last.toLowerCase()}`,
+                                        }}
+                                        className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                    >
+                                        More Info
+                                    </Link>
+                                </td>
                             </tr>
                         );
                     })}

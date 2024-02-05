@@ -69,7 +69,7 @@ export default function SideBar() {
                         <li key={each.text}>
                             <Link
                                 className={`${pathname === "/" + each.text.toLowerCase() && "side-bar"} flex items-center gap-3 h-14 rounded-xl p-2"`}
-                                href={each.text.toLowerCase()}
+                                href={"/" + each.text.toLowerCase()}
                             >
                                 <div
                                     dangerouslySetInnerHTML={{
