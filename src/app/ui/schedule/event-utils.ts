@@ -4,12 +4,12 @@ let todayStr = new Date().toISOString().replace(/T.*$/, ""); // YYYY-MM-DD of to
 export const INITIAL_EVENTS = [
     {
         id: createEventId(),
-        title: "Supa",
-              extendedProps: {
-                description: ['Haircut', 'Nail'],
-              },
-        start: todayStr + "T09:00:00",
-        end: todayStr + "T10:00:00",
+        title: "Jan",
+        extendedProps: {
+            description: ["Haircut", "Nail"],
+        },
+        start: todayStr + "T10:00:00",
+        end: todayStr + "T11:00:00",
     },
 ];
 
