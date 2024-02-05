@@ -4,6 +4,10 @@
 
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
+.blur-img {
+    box-shadow: 0px 4px 100px 124px #dcdcdc;
+}
+
 body {
     /*padding-top: 1rem;*/
 }
