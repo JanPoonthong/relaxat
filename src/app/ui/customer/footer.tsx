@@ -41,7 +41,7 @@ export default function Footer() {
                     <>
                         <button
                             onClick={() => onClickHandlerShowImg(false)}
-                            className="text-xl text-red-500 z-2"
+                            className="text-xl text-red-500 z-2 fixed"
                         >
                             X
                         </button>
@@ -74,16 +74,18 @@ export default function Footer() {
                             </p>
                         </div>
 
-                        <div className="ban-footer flex gap-3">
-                            <button
-                                onClick={() => onClickHandlerShowBan(false)}
-                                className="text-white"
-                            >
-                                Cancel
-                            </button>
-                            <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded">
-                                Confirm
-                            </button>
+                        <div className="ban-footer">
+                            <div className="flex justify-end w-full gap-3">
+                                <button
+                                    onClick={() => onClickHandlerShowBan(false)}
+                                    className="text-gray-600"
+                                >
+                                    Cancel
+                                </button>
+                                <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded">
+                                    Confirm
+                                </button>
+                            </div>
                         </div>
                     </div>
                 )}
