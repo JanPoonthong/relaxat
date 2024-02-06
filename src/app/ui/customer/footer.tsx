@@ -41,7 +41,7 @@ export default function Footer() {
                     <>
                         <button
                             onClick={() => onClickHandlerShowImg(false)}
-                            className="text-xl text-red-500"
+                            className="text-xl text-red-500 z-2"
                         >
                             X
                         </button>
