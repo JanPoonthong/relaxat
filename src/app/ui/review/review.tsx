@@ -98,7 +98,6 @@ export default function Review({ commentDate }: { commentDate: number }) {
                             </div>
                         </div>
                         <div className="pl-6 pt-5">
-                            <p>adasghjkk</p>
                         </div>
                     </Border>
                 );
