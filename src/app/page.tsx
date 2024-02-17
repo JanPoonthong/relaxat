@@ -1,15 +1,7 @@
-"use client";
-
-import NavBar from "./ui/home/nav-bar";
-import SideBar from "./ui/home/side-bar";
+import { redirect } from 'next/navigation'
 
 export default function Home() {
-    return (
-        <>
-            <NavBar />
-            <main>
-                <SideBar />
-            </main>
-        </>
-    );
+
+    return redirect("/financial");
+
 }
