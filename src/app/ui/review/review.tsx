@@ -97,8 +97,7 @@ export default function Review({ commentDate }: { commentDate: number }) {
                                 </button>
                             </div>
                         </div>
-                        <div className="pl-6 pt-5">
-                        </div>
+                        <div className="pl-6 pt-5"></div>
                     </Border>
                 );
             })}

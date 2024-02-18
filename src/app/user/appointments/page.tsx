@@ -17,18 +17,23 @@ export default function Page() {
             </div>
             <div className="mt-4">
                 <div>
-                    <p className="text-xl font-bold text-gray-600">Coming Appointments</p>
-                    <AppointmentCard buttonText="cancel"/>
+                    <p className="text-xl font-bold text-gray-600">
+                        Coming Appointments
+                    </p>
+                    <AppointmentCard buttonText="cancel" />
                 </div>
                 <div>
-                    <p className="text-xl font-bold text-gray-600">Past Appointments</p>
-                    <AppointmentCard buttonText="review"/>
+                    <p className="text-xl font-bold text-gray-600">
+                        Past Appointments
+                    </p>
+                    <AppointmentCard buttonText="review" />
                 </div>
                 <div>
-                    <p className="text-xl font-bold text-gray-600">Reviewed Appointments</p>
-                    <AppointmentCard buttonText=""/>
+                    <p className="text-xl font-bold text-gray-600">
+                        Reviewed Appointments
+                    </p>
+                    <AppointmentCard buttonText="" />
                 </div>
-
             </div>
         </div>
     );
