@@ -8,7 +8,13 @@ interface StarRatingProps {
     onClick: (value: number) => void;
 }
 
-export default function Review({ commentDate }: { commentDate: number }) {
+export default function Review({
+    commentDate,
+    showName,
+}: {
+    commentDate: number;
+    showName: boolean;
+}) {
     const differenceInDays = Math.round(commentDate / 86400000);
     const [likeIconBool, setLikeIconBool] = useState(false);
     const [starRating, setStarRating] = useState(0);
@@ -138,9 +144,13 @@ export default function Review({ commentDate }: { commentDate: number }) {
                                     <div className="bg-purple-600 text-white font-bold rounded-md p-1 text-sm inline-block">
                                         Haircut
                                     </div>
-                                    <div className="bg-purple-600 text-white font-bold rounded-md p-1 text-sm inline-block">
-                                        John Willer
-                                    </div>
+                                    {showName ? (
+                                        <div className="bg-purple-600 text-white font-bold rounded-md p-1 text-sm inline-block">
+                                            John Willer
+                                        </div>
+                                    ) : (
+                                        <div></div>
+                                    )}
                                 </div>
                                 <StarRating
                                     value={starRating}
