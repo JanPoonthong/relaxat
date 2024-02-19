@@ -82,7 +82,10 @@ export default function Footer() {
                                 >
                                     Cancel
                                 </button>
-                                <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded">
+                                <button
+                                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded"
+                                    onClick={() => onClickHandlerShowBan(false)}
+                                >
                                     Confirm
                                 </button>
                             </div>
