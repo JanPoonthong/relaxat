@@ -26,9 +26,8 @@ export default function Review({ commentDate }: { commentDate: number }) {
                             key={star}
                             onClick={() => onClick(star)}
                             style={{
-                                cursor: "pointer",
                                 fontSize: "3em",
-                                color: star <= value ? "gold" : "gray",
+                                color: star <= 3 ? "gold" : "gray",
                             }}
                         >
                             &#9733;
@@ -89,7 +88,7 @@ export default function Review({ commentDate }: { commentDate: number }) {
                                 <div className="pl-6">
                                     <p className="pt-2 pb-2">{each.comment}</p>
                                     <div className="flex gap-4 items-center">
-                                        <button>REPLY</button>
+                                        {/*<button>REPLY</button>*/}
                                         <button onClick={() => thumbUp()}>
                                             {thumbUpIconBool ? (
                                                 <i className="bi bi-hand-thumbs-up-fill"></i>

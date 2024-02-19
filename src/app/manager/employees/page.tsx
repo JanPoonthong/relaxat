@@ -97,7 +97,9 @@ export default function Page() {
                                 </td>
                                 <td className="px-6 py-4 text-right">
                                     <button
-                                        onClick={() => setIsConfirmModalOpen(true)}
+                                        onClick={() =>
+                                            setIsConfirmModalOpen(true)
+                                        }
                                         className="font-medium text-red-600 hover:underline"
                                     >
                                         Delete
@@ -114,7 +116,8 @@ export default function Page() {
                 title={"Delete Confirmation"}
                 message={"Are you sure you want to delete this employee?"}
                 onConfirm={handleConfirm}
-                onClose={handleCloseConfirmModal}/>
+                onClose={handleCloseConfirmModal}
+            />
 
             <Dialog
                 as="div"

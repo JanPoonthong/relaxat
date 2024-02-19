@@ -1,19 +1,18 @@
 export default function ManagerSideBar() {
-
     const sideBarItems = [
         {
             icon: "bi bi-house-door-fill me-4",
-            text: "Branches"
+            text: "Branches",
         },
         {
             icon: "bi bi-people-fill me-4",
-            text: "Employees"
+            text: "Employees",
         },
         {
             icon: "bi bi-scissors me-4",
-            text: "Services"
-        }
-    ]
+            text: "Services",
+        },
+    ];
     return (
         <aside className="h-screen top-0 left-0 z-40 w-64" aria-label="Sidenav">
             <div className="py-5 px-3 h-full bg-white border-r border-gray-200">
@@ -32,10 +31,10 @@ export default function ManagerSideBar() {
                                     href={"/manager/" + item.text.toLowerCase()}
                                     className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 group"
                                 >
-                            <span className="ml-3">
-                                <i className={item.icon}></i>
-                                {item.text}
-                            </span>
+                                    <span className="ml-3">
+                                        <i className={item.icon}></i>
+                                        {item.text}
+                                    </span>
                                 </a>
                             </li>
                         );
