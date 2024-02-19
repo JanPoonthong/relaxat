@@ -89,6 +89,7 @@ export default function Review({ commentDate }: { commentDate: number }) {
                                     <p className="pt-2 pb-2">{each.comment}</p>
                                     <div className="flex gap-4 items-center">
                                         {/*<button>REPLY</button>*/}
+                                        {/*
                                         <button onClick={() => thumbUp()}>
                                             {thumbUpIconBool ? (
                                                 <i className="bi bi-hand-thumbs-up-fill"></i>
@@ -125,6 +126,7 @@ export default function Review({ commentDate }: { commentDate: number }) {
                                                 <i className="bi bi-heart"></i>
                                             )}
                                         </button>
+                                        */}
                                         <button>
                                             {/*<DropDownButton /> */}
                                         </button>
