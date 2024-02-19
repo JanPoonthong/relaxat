@@ -17,7 +17,7 @@ export default function BasicTimePicker() {
     const [startDate, setStartDate] = useState(new Date());
     const [reviewText, setReviewText] = useState("");
 
-    const onChange = (time) => {
+    const onChange = (time: string) => {
         setValue(time);
     };
     const onInvalidChange = () => {
@@ -30,7 +30,7 @@ export default function BasicTimePicker() {
                 <div>
                     <DatePicker
                         selected={startDate}
-                        onChange={(date) => setStartDate(date)}
+                        onChange={(date: Date) => setStartDate(date)}
                     />
                 </div>
                 <div>
