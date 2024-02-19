@@ -1,9 +1,19 @@
 "use client";
 import { Dialog } from "@headlessui/react";
+import ConfirmModal from "@/app/modals/ConfirmModal";
 import { useState } from "react";
 
 export default function Page() {
     let [isOpen, setIsOpen] = useState(false);
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+
+    function handleConfirm() {
+        setIsConfirmModalOpen(false);
+    }
+
+    function handleCloseConfirmModal() {
+        setIsConfirmModalOpen(false);
+    }
 
     function closeModal() {
         setIsOpen(false);
@@ -86,18 +96,25 @@ export default function Page() {
                                     </a>
                                 </td>
                                 <td className="px-6 py-4 text-right">
-                                    <a
-                                        href="#"
+                                    <button
+                                        onClick={() => setIsConfirmModalOpen(true)}
                                         className="font-medium text-red-600 hover:underline"
                                     >
                                         Delete
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+
+            <ConfirmModal
+                isOpen={isConfirmModalOpen}
+                title={"Delete Confirmation"}
+                message={"Are you sure you want to delete this employee?"}
+                onConfirm={handleConfirm}
+                onClose={handleCloseConfirmModal}/>
 
             <Dialog
                 as="div"
@@ -156,15 +173,26 @@ export default function Page() {
                                             htmlFor="first-name"
                                             className="block text-sm font-medium leading-6 text-gray-900"
                                         >
-                                            First Role
+                                            Service Role
                                         </label>
                                         <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                name="last-name"
-                                                id="last-name"
-                                                className="block w-full rounded-md border-0 py-1.5 pl-2 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                            />
+                                            <select
+                                                id="branch"
+                                                name="branch"
+                                                autoComplete="branch-name"
+                                                className="block w-full rounded-md border-0 py-1.5 px-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                                            >
+                                                <option
+                                                    selected
+                                                    disabled
+                                                    hidden
+                                                >
+                                                    Select Category
+                                                </option>
+                                                <option>Hair</option>
+                                                <option>Nail</option>
+                                                <option>Spa</option>
+                                            </select>
                                         </div>
                                     </div>
 
@@ -173,7 +201,7 @@ export default function Page() {
                                             htmlFor="first-name"
                                             className="block text-sm font-medium leading-6 text-gray-900"
                                         >
-                                            Role
+                                            Branch
                                         </label>
                                         <div className="mt-2">
                                             <select
