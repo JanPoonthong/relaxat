@@ -134,8 +134,13 @@ export default function Review({ commentDate }: { commentDate: number }) {
                                 </div>
                             </div>
                             <div className="">
-                                <div className="bg-purple-600 text-white font-bold rounded-md p-1 text-sm inline-block">
-                                    Haircut
+                                <div className="flex gap-3">
+                                    <div className="bg-purple-600 text-white font-bold rounded-md p-1 text-sm inline-block">
+                                        Haircut
+                                    </div>
+                                    <div className="bg-purple-600 text-white font-bold rounded-md p-1 text-sm inline-block">
+                                        John Willer
+                                    </div>
                                 </div>
                                 <StarRating
                                     value={starRating}
