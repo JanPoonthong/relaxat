@@ -25,9 +25,12 @@
         "dayjs": "^1.11.10",
         "next": "14.1.0",
         "react": "^18",
+        "react-bootstrap": "^2.10.1",
         "react-datepicker": "^6.1.0",
         "react-dom": "^18",
         "react-google-charts": "^4.0.1",
+        "react-ratings-declarative": "^3.4.1",
+        "react-star-ratings": "^2.3.0",
         "react-time-picker": "^6.6.0"
     },
     "devDependencies": {
