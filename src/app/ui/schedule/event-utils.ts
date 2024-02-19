@@ -6,7 +6,7 @@ export const INITIAL_EVENTS = [
         id: createEventId(),
         title: "Jan",
         extendedProps: {
-            description: ["Haircut", "Nail"],
+            description: ["Haircut"],
         },
         start: todayStr + "T10:00:00",
         end: todayStr + "T11:00:00",
