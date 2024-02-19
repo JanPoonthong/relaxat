@@ -42,3 +42,16 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+.react-datepicker-wrapper {
+    border: 1px solid #e5e7eb !important;
+    padding: 1rem !important;
+    height: 100% !important;
+}
+.react-datepicker__input-container {
+    height: 100% !important;
+}
+
+.react-datepicker__input-container input {
+    height: 100% !important;
+}
