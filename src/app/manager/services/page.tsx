@@ -1,9 +1,23 @@
 "use client";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 
 export default function Page() {
     let [isOpen, setIsOpen] = useState(false);
+    const [data, setData] = useState(null);
+    const [isLoading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch("http://localhost:3000/api/v1/services")
+            .then((res) => res.json())
+            .then((data) => {
+                setData(data);
+                setLoading(false);
+            });
+    }, []);
+
+    if (isLoading) return <p>Loading...</p>;
+    if (!data) return <p>No profile data</p>;
 
     function closeModal() {
         setIsOpen(false);
@@ -59,35 +73,46 @@ export default function Page() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="bg-white border-b">
-                                <th
-                                    scope="row"
-                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                                >
-                                    Haircut
-                                </th>
-                                <td className="px-6 py-4">Hair</td>
-                                <td className="px-6 py-4">400 Baht</td>
-                                <td className="px-6 py-4">
-                                    Siam Square One, Sukhumvit
-                                </td>
-                                <td className="px-6 py-4 text-right">
-                                    <a
-                                        href="#"
-                                        className="font-medium text-blue-600 hover:underline"
+                            {data.data.map((each: any) => {
+                                return (
+                                    <tr
+                                        key={each.service_name}
+                                        className="bg-white border-b"
                                     >
-                                        Edit
-                                    </a>
-                                </td>
-                                <td className="px-6 py-4 text-right">
-                                    <a
-                                        href="#"
-                                        className="font-medium text-red-600 hover:underline"
-                                    >
-                                        Delete
-                                    </a>
-                                </td>
-                            </tr>
+                                        <th
+                                            scope="row"
+                                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                                        >
+                                            {each.service_name}
+                                        </th>
+                                        <td className="px-6 py-4">
+                                            {each.category_name}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {each.price} Baht
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            Siam Square One, Sukhumvit
+                                        </td>
+                                        <td className="px-6 py-4 text-right">
+                                            <a
+                                                href="#"
+                                                className="font-medium text-blue-600 hover:underline"
+                                            >
+                                                Edit
+                                            </a>
+                                        </td>
+                                        <td className="px-6 py-4 text-right">
+                                            <a
+                                                href="#"
+                                                className="font-medium text-red-600 hover:underline"
+                                            >
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
                         </tbody>
                     </table>
                 </div>
