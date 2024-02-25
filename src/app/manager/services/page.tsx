@@ -11,8 +11,8 @@ function toTitleCase(str: string) {
 export default function Page() {
     let [isOpen, setIsOpen] = useState(false);
 
-    const [serviceData, setServiceData] = useState(null);
-    const [categoryData, setCategoryData] = useState(null);
+    const [serviceData, setServiceData] = useState<any>(null);
+    const [categoryData, setCategoryData] = useState<any>(null);
 
     const [isLoading, setLoading] = useState(true);
     const [message, setMessage] = useState("");
