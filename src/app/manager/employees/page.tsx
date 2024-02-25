@@ -67,69 +67,71 @@ export default function Page() {
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-                        <tr>
-                            <th scope="col" className="px-6 py-3">
-                                First Name
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                <div className="flex items-center">
-                                    Last Name
-                                </div>
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                <div className="flex items-center">
-                                    Role
-                                </div>
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                <div className="flex items-center">
-                                    Branch
-                                </div>
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                <div className="flex items-center">
-                                    Email Address
-                                </div>
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                <span className="sr-only">Edit</span>
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                <span className="sr-only">Delete</span>
-                            </th>
-                        </tr>
+                            <tr>
+                                <th scope="col" className="px-6 py-3">
+                                    First Name
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    <div className="flex items-center">
+                                        Last Name
+                                    </div>
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    <div className="flex items-center">
+                                        Role
+                                    </div>
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    <div className="flex items-center">
+                                        Branch
+                                    </div>
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    <div className="flex items-center">
+                                        Email Address
+                                    </div>
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    <span className="sr-only">Edit</span>
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    <span className="sr-only">Delete</span>
+                                </th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr className="bg-white border-b">
-                            <th
-                                scope="row"
-                                className="px-6 py-4 font-medium whitespace-nowrap"
-                            >
-                                Mark
-                            </th>
-                            <td className="px-6 py-4">Otto</td>
-                            <td className="px-6 py-4">Barber</td>
-                            <td className="px-6 py-4">Siam Square One</td>
-                            <td className="px-6 py-4">
-                                markotto@email.com
-                            </td>
-                            <td className="px-6 py-4 text-right">
-                                <a
-                                    href="#"
-                                    className="font-medium text-blue-600 hover:underline"
+                            <tr className="bg-white border-b">
+                                <th
+                                    scope="row"
+                                    className="px-6 py-4 font-medium whitespace-nowrap"
                                 >
-                                    Edit
-                                </a>
-                            </td>
-                            <td className="px-6 py-4 text-right">
-                                <button
-                                    onClick={() => setIsConfirmModalOpen(true)}
-                                    className="font-medium text-red-600 hover:underline"
-                                >
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
+                                    Mark
+                                </th>
+                                <td className="px-6 py-4">Otto</td>
+                                <td className="px-6 py-4">Barber</td>
+                                <td className="px-6 py-4">Siam Square One</td>
+                                <td className="px-6 py-4">
+                                    markotto@email.com
+                                </td>
+                                <td className="px-6 py-4 text-right">
+                                    <a
+                                        href="#"
+                                        className="font-medium text-blue-600 hover:underline"
+                                    >
+                                        Edit
+                                    </a>
+                                </td>
+                                <td className="px-6 py-4 text-right">
+                                    <button
+                                        onClick={() =>
+                                            setIsConfirmModalOpen(true)
+                                        }
+                                        className="font-medium text-red-600 hover:underline"
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -151,63 +153,65 @@ export default function Page() {
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-                        <tr>
-                            <th scope="col" className="px-6 py-3">
-                                First Name
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                <div className="flex items-center">
-                                    Last Name
-                                </div>
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                <div className="flex items-center">
-                                    Branch
-                                </div>
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                <div className="flex items-center">
-                                    Email Address
-                                </div>
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                <span className="sr-only">Edit</span>
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                <span className="sr-only">Delete</span>
-                            </th>
-                        </tr>
+                            <tr>
+                                <th scope="col" className="px-6 py-3">
+                                    First Name
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    <div className="flex items-center">
+                                        Last Name
+                                    </div>
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    <div className="flex items-center">
+                                        Branch
+                                    </div>
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    <div className="flex items-center">
+                                        Email Address
+                                    </div>
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    <span className="sr-only">Edit</span>
+                                </th>
+                                <th scope="col" className="px-6 py-3">
+                                    <span className="sr-only">Delete</span>
+                                </th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr className="bg-white border-b">
-                            <th
-                                scope="row"
-                                className="px-6 py-4 font-medium whitespace-nowrap"
-                            >
-                                Mark
-                            </th>
-                            <td className="px-6 py-4">Otto</td>
-                            <td className="px-6 py-4">Siam Square One</td>
-                            <td className="px-6 py-4">
-                                markotto@email.com
-                            </td>
-                            <td className="px-6 py-4 text-right">
-                                <a
-                                    href="#"
-                                    className="font-medium text-blue-600 hover:underline"
+                            <tr className="bg-white border-b">
+                                <th
+                                    scope="row"
+                                    className="px-6 py-4 font-medium whitespace-nowrap"
                                 >
-                                    Edit
-                                </a>
-                            </td>
-                            <td className="px-6 py-4 text-right">
-                                <button
-                                    onClick={() => setIsConfirmModalOpen(true)}
-                                    className="font-medium text-red-600 hover:underline"
-                                >
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
+                                    Mark
+                                </th>
+                                <td className="px-6 py-4">Otto</td>
+                                <td className="px-6 py-4">Siam Square One</td>
+                                <td className="px-6 py-4">
+                                    markotto@email.com
+                                </td>
+                                <td className="px-6 py-4 text-right">
+                                    <a
+                                        href="#"
+                                        className="font-medium text-blue-600 hover:underline"
+                                    >
+                                        Edit
+                                    </a>
+                                </td>
+                                <td className="px-6 py-4 text-right">
+                                    <button
+                                        onClick={() =>
+                                            setIsConfirmModalOpen(true)
+                                        }
+                                        className="font-medium text-red-600 hover:underline"
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -234,8 +238,6 @@ export default function Page() {
                 onConfirm={handleConfirmAddNewStaff}
                 onClose={handleCloseAddNewStaffModal}
             />
-
-
         </div>
     );
 }

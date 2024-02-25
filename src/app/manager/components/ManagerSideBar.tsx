@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import {usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export default function ManagerSideBar() {
     const pathname = usePathname();
@@ -15,9 +15,9 @@ export default function ManagerSideBar() {
         },
         {
             icon: "bi bi-scissors me-4",
-            text: "Services"
-        }
-    ]
+            text: "Services",
+        },
+    ];
 
     return (
         <aside className="h-screen top-0 left-0 z-40 w-64" aria-label="Sidenav">
@@ -37,10 +37,12 @@ export default function ManagerSideBar() {
                                     href={"/manager/" + item.text.toLowerCase()}
                                     className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 group"
                                 >
-                            <span className={`${pathname === "/manager/" + item.text.toLowerCase() && "text-indigo-700 font-bold"} ml-3"`}>
-                                <i className={item.icon}></i>
-                                {item.text}
-                            </span>
+                                    <span
+                                        className={`${pathname === "/manager/" + item.text.toLowerCase() && "text-indigo-700 font-bold"} ml-3"`}
+                                    >
+                                        <i className={item.icon}></i>
+                                        {item.text}
+                                    </span>
                                 </Link>
                             </li>
                         );

@@ -1,14 +1,19 @@
 "use client";
-import { Dialog } from '@headlessui/react';
+import { Dialog } from "@headlessui/react";
 
 interface Props {
-    isOpen: boolean,
-    title: String,
-    onConfirm: Function,
-    onClose:Function
+    isOpen: boolean;
+    title: String;
+    onConfirm: Function;
+    onClose: Function;
 }
 
-export default function AddNewStaffModal({isOpen, title, onConfirm, onClose}: Props) {
+export default function AddNewStaffModal({
+    isOpen,
+    title,
+    onConfirm,
+    onClose,
+}: Props) {
     return (
         <Dialog
             as="div"
@@ -18,8 +23,7 @@ export default function AddNewStaffModal({isOpen, title, onConfirm, onClose}: Pr
         >
             <div className="fixed inset-0 overflow-y-auto">
                 <div className="flex min-h-full items-center justify-center p-4 text-center">
-                    <Dialog.Panel
-                        className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all  border border-gray-100">
+                    <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all  border border-gray-100">
                         <Dialog.Title
                             as="h3"
                             className="text-lg font-medium leading-6 text-gray-900"
@@ -77,11 +81,7 @@ export default function AddNewStaffModal({isOpen, title, onConfirm, onClose}: Pr
                                             autoComplete="branch-name"
                                             className="block w-full rounded-md border-0 py-1.5 px-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
                                         >
-                                            <option
-                                                selected
-                                                disabled
-                                                hidden
-                                            >
+                                            <option selected disabled hidden>
                                                 Select Category
                                             </option>
                                             <option>Hair</option>
@@ -105,11 +105,7 @@ export default function AddNewStaffModal({isOpen, title, onConfirm, onClose}: Pr
                                             autoComplete="branch-name"
                                             className="block w-full rounded-md border-0 py-1.5 px-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
                                         >
-                                            <option
-                                                selected
-                                                disabled
-                                                hidden
-                                            >
+                                            <option selected disabled hidden>
                                                 Select Branch
                                             </option>
                                             <option>Mega Bangna</option>
@@ -147,7 +143,7 @@ export default function AddNewStaffModal({isOpen, title, onConfirm, onClose}: Pr
                                 />
                             </div>
                         </div>
-                        <hr className="mt-3"/>
+                        <hr className="mt-3" />
                         <div className="mt-2 float-end">
                             <button
                                 type="button"
@@ -168,5 +164,5 @@ export default function AddNewStaffModal({isOpen, title, onConfirm, onClose}: Pr
                 </div>
             </div>
         </Dialog>
-    )
+    );
 }
