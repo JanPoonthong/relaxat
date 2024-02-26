@@ -1,6 +1,7 @@
 "use client";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState, useEffect } from "react";
+import { api } from "../../lib/api";
 
 function toTitleCase(str: string) {
     return str.replace(/\w\S*/g, function (txt: string) {
@@ -26,12 +27,9 @@ export default function Page() {
 
     const deleteOnClick = async (deleteID: number) => {
         try {
-            let res = await fetch(
-                `http://52.139.170.14:3000/api/v1/services/${deleteID}`,
-                {
-                    method: "DELETE",
-                },
-            );
+            let res = await fetch(`${api}/services/${deleteID}`, {
+                method: "DELETE",
+            });
             let resJson = await res.json();
             if (res.status === 200) {
                 setMessage("Delete service successfully");
@@ -44,7 +42,7 @@ export default function Page() {
     };
 
     useEffect(() => {
-        fetch("http://52.139.170.14:3000/api/v1/categories")
+        fetch(`${api}/categories`)
             .then((res) => res.json())
             .then((data) => {
                 setCategoryData(data);
@@ -60,19 +58,16 @@ export default function Page() {
         e.preventDefault();
 
         try {
-            let res = await fetch(
-                "http://52.139.170.14:3000/api/v1/services/",
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        service_name: serviceName,
-                        category_id: pickedCategory,
-                        price: price,
-                        branches: [1, 2], //TODO(jan)
-                    }),
-                },
-            );
+            let res = await fetch(`${api}/services`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    service_name: serviceName,
+                    category_id: pickedCategory,
+                    price: price,
+                    branches: [1, 2], //TODO(jan)
+                }),
+            });
             let resJson = await res.json();
             if (res.status === 200) {
                 setServiceName("");
@@ -97,7 +92,7 @@ export default function Page() {
     };
 
     useEffect(() => {
-        fetch("http://52.139.170.14:3000/api/v1/services")
+        fetch(`${api}/services`)
             .then((res) => res.json())
             .then((data) => {
                 setServiceData(data);

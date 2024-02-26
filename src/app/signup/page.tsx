@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { api } from "../lib/api";
 
 export default function Page() {
     const [email, setEmail] = useState("");
@@ -14,7 +15,7 @@ export default function Page() {
         e.preventDefault();
 
         try {
-            let res = await fetch("http://52.139.170.14:3000/api/v1/signup", {
+            let res = await fetch(`${api}/signup`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
