@@ -5,7 +5,7 @@ import { api } from "../../lib/api";
 
 export default function Page() {
     let [isOpen, setIsOpen] = useState(false);
-    const [branchesData, setBranchesData] = useState(null);
+    const [branchesData, setBranchesData] = useState<any>(null);
     const [isLoading, setLoading] = useState(true);
 
     function closeModal() {
@@ -91,7 +91,7 @@ export default function Page() {
                             </tr>
                         </thead>
                         <tbody>
-                            {branchesData.data.map((each) => {
+                            {branchesData.data.map((each: any) => {
                                 return (
                                     <tr
                                         key={each.branch_id}
