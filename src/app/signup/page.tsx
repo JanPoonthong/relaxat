@@ -17,7 +17,10 @@ export default function Page() {
         try {
             let res = await fetch(`${api}/signup`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "69420",
+                },
                 body: JSON.stringify({
                     email: email,
                     password: password,

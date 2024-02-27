@@ -17,7 +17,13 @@ export default function Page() {
     }
 
     useEffect(() => {
-        fetch(`${api}/branches`)
+        fetch(`${api}/branches`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "ngrok-skip-browser-warning": "69420",
+            },
+        })
             .then((res) => res.json())
             .then((data) => {
                 setBranchesData(data);

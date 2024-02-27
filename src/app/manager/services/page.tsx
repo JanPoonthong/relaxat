@@ -29,6 +29,10 @@ export default function Page() {
         try {
             let res = await fetch(`${api}/services/${deleteID}`, {
                 method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "69420",
+                },
             });
             let resJson = await res.json();
             if (res.status === 200) {
@@ -42,7 +46,13 @@ export default function Page() {
     };
 
     useEffect(() => {
-        fetch(`${api}/categories`)
+        fetch(`${api}/categories`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "ngrok-skip-browser-warning": "69420",
+            },
+        })
             .then((res) => res.json())
             .then((data) => {
                 setCategoryData(data);
@@ -60,7 +70,10 @@ export default function Page() {
         try {
             let res = await fetch(`${api}/services`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "69420",
+                },
                 body: JSON.stringify({
                     service_name: serviceName,
                     category_id: pickedCategory,
@@ -92,7 +105,13 @@ export default function Page() {
     };
 
     useEffect(() => {
-        fetch(`${api}/services`)
+        fetch(`${api}/services`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "ngrok-skip-browser-warning": "69420",
+            },
+        })
             .then((res) => res.json())
             .then((data) => {
                 setServiceData(data);
