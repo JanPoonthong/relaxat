@@ -12,7 +12,7 @@ export default function Page() {
     const [branchAddress, setBranchAddress] = useState("");
     const [adminID, setadminID] = useState("");
 
-    const [adminAvailableData, setAdminAvailableData] = useState("");
+    const [adminAvailableData, setAdminAvailableData] = useState<any>();
     const [message, setMessage] = useState("");
 
     function closeModal() {
@@ -288,7 +288,7 @@ export default function Page() {
                                             >
                                                 <option>Select Admin</option>
                                                 {adminAvailableData.data.map(
-                                                    (each) => {
+                                                    (each: any) => {
                                                         return (
                                                             <option
                                                                 value={
