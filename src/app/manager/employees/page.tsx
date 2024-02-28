@@ -1,13 +1,52 @@
 "use client";
 import ConfirmModal from "@/app/modals/ConfirmModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddNewAdminModal from "@/app/manager/components/AddNewAdminModal";
 import AddNewStaffModal from "@/app/manager/components/AddNewStaffModal";
+
+import { api } from "../../lib/api";
 
 export default function Page() {
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [isAddNewAdminModalOpen, setIsNewAdminModalOpen] = useState(false);
     const [isAddNewStaffModalOpen, setIsNewStaffModalOpen] = useState(false);
+
+    const [staffData, setStaffData] = useState<any>();
+    const [adminData, setAdminData] = useState<any>();
+    const [isLoading, setLoading] = useState(true);
+    const [message, setMessage] = useState("");
+
+    useEffect(() => {
+        fetch(`${api}/staff`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "ngrok-skip-browser-warning": "69420",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setStaffData(data);
+                setLoading(false);
+            });
+
+        fetch(`${api}/admins`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "ngrok-skip-browser-warning": "69420",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setAdminData(data);
+                setLoading(false);
+            });
+    }, []);
+
+    if (isLoading) return <p>Loading...</p>;
+    if (!staffData) return <p>No profile data</p>;
+    if (!adminData) return <p>No profile data</p>;
 
     function handleConfirm() {
         setIsConfirmModalOpen(false);
@@ -100,38 +139,51 @@ export default function Page() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="bg-white border-b">
-                                <th
-                                    scope="row"
-                                    className="px-6 py-4 font-medium whitespace-nowrap"
-                                >
-                                    Mark
-                                </th>
-                                <td className="px-6 py-4">Otto</td>
-                                <td className="px-6 py-4">Barber</td>
-                                <td className="px-6 py-4">Siam Square One</td>
-                                <td className="px-6 py-4">
-                                    markotto@email.com
-                                </td>
-                                <td className="px-6 py-4 text-right">
-                                    <a
-                                        href="#"
-                                        className="font-medium text-blue-600 hover:underline"
+                            {staffData.data.map((each: any) => {
+                                return (
+                                    <tr
+                                        key={each.person_id}
+                                        className="bg-white border-b"
                                     >
-                                        Edit
-                                    </a>
-                                </td>
-                                <td className="px-6 py-4 text-right">
-                                    <button
-                                        onClick={() =>
-                                            setIsConfirmModalOpen(true)
-                                        }
-                                        className="font-medium text-red-600 hover:underline"
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
+                                        <th
+                                            scope="row"
+                                            className="px-6 py-4 font-medium whitespace-nowrap"
+                                        >
+                                            {each.first_name}
+                                        </th>
+                                        <td className="px-6 py-4">
+                                            {each.last_name}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {each.category_name}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {each.branch_name}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {each.email}
+                                        </td>
+                                        <td className="px-6 py-4 text-right">
+                                            <a
+                                                href="#"
+                                                className="font-medium text-blue-600 hover:underline"
+                                            >
+                                                Edit
+                                            </a>
+                                        </td>
+                                        <td className="px-6 py-4 text-right">
+                                            <button
+                                                onClick={() =>
+                                                    setIsConfirmModalOpen(true)
+                                                }
+                                                className="font-medium text-red-600 hover:underline"
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
                         </tbody>
                     </table>
                 </div>
@@ -181,37 +233,48 @@ export default function Page() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="bg-white border-b">
-                                <th
-                                    scope="row"
-                                    className="px-6 py-4 font-medium whitespace-nowrap"
-                                >
-                                    Mark
-                                </th>
-                                <td className="px-6 py-4">Otto</td>
-                                <td className="px-6 py-4">Siam Square One</td>
-                                <td className="px-6 py-4">
-                                    markotto@email.com
-                                </td>
-                                <td className="px-6 py-4 text-right">
-                                    <a
-                                        href="#"
-                                        className="font-medium text-blue-600 hover:underline"
+                            {adminData.data.map((each: any) => {
+                                return (
+                                    <tr
+                                        key={each.person_id}
+                                        className="bg-white border-b"
                                     >
-                                        Edit
-                                    </a>
-                                </td>
-                                <td className="px-6 py-4 text-right">
-                                    <button
-                                        onClick={() =>
-                                            setIsConfirmModalOpen(true)
-                                        }
-                                        className="font-medium text-red-600 hover:underline"
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
+                                        <th
+                                            scope="row"
+                                            className="px-6 py-4 font-medium whitespace-nowrap"
+                                        >
+                                            {each.first_name}
+                                        </th>
+                                        <td className="px-6 py-4">
+                                            {each.last_name}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {each.branch_name}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {each.email}
+                                        </td>
+                                        <td className="px-6 py-4 text-right">
+                                            <a
+                                                href="#"
+                                                className="font-medium text-blue-600 hover:underline"
+                                            >
+                                                Edit
+                                            </a>
+                                        </td>
+                                        <td className="px-6 py-4 text-right">
+                                            <button
+                                                onClick={() =>
+                                                    setIsConfirmModalOpen(true)
+                                                }
+                                                className="font-medium text-red-600 hover:underline"
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
                         </tbody>
                     </table>
                 </div>

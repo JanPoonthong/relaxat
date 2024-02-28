@@ -20,10 +20,11 @@ export default function Page() {
 
     const [price, setPrice] = useState(0);
     const [serviceName, setServiceName] = useState("");
-    const [checkedService, setCheckedService] = useState<string[]>([]);
+    const [checkedService, setCheckedService] = useState<any[]>([]);
+    const [branchList, setBranchList] = useState<any>();
 
     const [pickedCategory, setPickedCategory] = useState(0);
-    // const [deleteID, setDeleteID] = useState(0);
+    const [deleteID, setDeleteID] = useState(0);
 
     const deleteOnClick = async (deleteID: number) => {
         try {
@@ -58,6 +59,32 @@ export default function Page() {
                 setCategoryData(data);
                 setLoading(false);
             });
+
+        fetch(`${api}/services`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "ngrok-skip-browser-warning": "69420",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setServiceData(data);
+                setLoading(false);
+            });
+
+        fetch(`${api}/brancheslist`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "ngrok-skip-browser-warning": "69420",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setBranchList(data);
+                setLoading(false);
+            });
     }, []);
 
     const handleChangeCategory = (e: any) => {
@@ -66,6 +93,7 @@ export default function Page() {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
+        const listOfBranchId = checkedService.map((each) => each.id);
 
         try {
             let res = await fetch(`${api}/services`, {
@@ -78,7 +106,7 @@ export default function Page() {
                     service_name: serviceName,
                     category_id: pickedCategory,
                     price: price,
-                    branches: [1, 2], //TODO(jan)
+                    branches: listOfBranchId,
                 }),
             });
             let resJson = await res.json();
@@ -94,9 +122,12 @@ export default function Page() {
         }
     };
 
-    const handleChangeService = (e: any, name: string) => {
+    const handleChangeService = (e: any, name: string, id: number) => {
         if (e.target.checked) {
-            setCheckedService((checkedService) => [...checkedService, name]);
+            setCheckedService((checkedService) => [
+                ...checkedService,
+                { name, id },
+            ]);
         } else {
             setCheckedService((checkedService) =>
                 checkedService.filter((each) => each !== name),
@@ -104,24 +135,10 @@ export default function Page() {
         }
     };
 
-    useEffect(() => {
-        fetch(`${api}/services`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "ngrok-skip-browser-warning": "69420",
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setServiceData(data);
-                setLoading(false);
-            });
-    }, []);
-
     if (isLoading) return <p>Loading...</p>;
     if (!serviceData) return <p>No profile data</p>;
     if (!categoryData) return <p>No profile data</p>;
+    if (!branchList) return <p>No profile data</p>;
 
     function closeModal() {
         setIsOpen(false);
@@ -332,65 +349,53 @@ export default function Page() {
                                             {checkedService.map((each) => {
                                                 return (
                                                     <div
-                                                        key={each}
+                                                        key={each.name}
                                                         className="relative grid select-none items-center whitespace-nowrap rounded-full bg-indigo-500 py-1.5 px-3 font-sans text-xs font-bold uppercase text-white"
                                                     >
                                                         <span className="">
-                                                            {each}
+                                                            {each.name}
                                                         </span>
                                                     </div>
                                                 );
                                             })}
                                         </div>
                                         <div className="mt-2">
-                                            <div className="flex gap-1">
-                                                <input
-                                                    type="checkbox"
-                                                    id="1"
-                                                    name="Mega Bangna"
-                                                    onChange={(e) =>
-                                                        handleChangeService(
-                                                            e,
-                                                            "Mega Bangna",
-                                                        )
-                                                    }
-                                                />
-                                                <label htmlFor="Mega Bangna">
-                                                    Mega Bangna
-                                                </label>
-                                            </div>
-                                            <div className="flex gap-1">
-                                                <input
-                                                    type="checkbox"
-                                                    id="2"
-                                                    name="Chit Lom"
-                                                    onChange={(e) =>
-                                                        handleChangeService(
-                                                            e,
-                                                            "Chit Lom",
-                                                        )
-                                                    }
-                                                />
-                                                <label htmlFor="Chit Lom">
-                                                    Chit Lom
-                                                </label>
-                                            </div>
-                                            <div className="flex gap-1">
-                                                <input
-                                                    type="checkbox"
-                                                    id="3"
-                                                    name="Udom Suk"
-                                                    onChange={(e) =>
-                                                        handleChangeService(
-                                                            e,
-                                                            "Udom Suk",
-                                                        )
-                                                    }
-                                                />
-                                                <label htmlFor="Udom Suk">
-                                                    Udom Suk
-                                                </label>
-                                            </div>
+                                            {branchList.data.map(
+                                                (each: any) => {
+                                                    return (
+                                                        <div
+                                                            key={each.branch_id}
+                                                            className="flex gap-1"
+                                                        >
+                                                            <input
+                                                                type="checkbox"
+                                                                id={
+                                                                    each.branch_id
+                                                                }
+                                                                name={
+                                                                    each.branch_name
+                                                                }
+                                                                onChange={(e) =>
+                                                                    handleChangeService(
+                                                                        e,
+                                                                        each.branch_name,
+                                                                        each.branch_id,
+                                                                    )
+                                                                }
+                                                            />
+                                                            <label
+                                                                htmlFor={
+                                                                    each.branch_name
+                                                                }
+                                                            >
+                                                                {
+                                                                    each.branch_name
+                                                                }
+                                                            </label>
+                                                        </div>
+                                                    );
+                                                },
+                                            )}
                                         </div>
                                     </div>
                                 </div>
