@@ -45,8 +45,8 @@ export default function Page() {
     }, []);
 
     if (isLoading) return <p>Loading...</p>;
-    if (!staffData) return <p>No profile data</p>;
     if (!adminData) return <p>No profile data</p>;
+    if (!staffData) return <p>No profile data</p>;
 
     function handleConfirm() {
         setIsConfirmModalOpen(false);
@@ -56,7 +56,31 @@ export default function Page() {
         setIsConfirmModalOpen(false);
     }
 
-    function handleConfirmAddNewAdmin() {
+    async function handleConfirmAddNewAdmin(e: any) {
+        e.preventDefault();
+        try {
+            let res = await fetch(`${api}/admins`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "69420",
+                },
+                body: JSON.stringify({
+                    firstName: e.target.firstname.value,
+                    lastName: e.target.lastname.value,
+                    email: e.target.email.value,
+                    password: e.target.password.value,
+                }),
+            });
+            let resJson = await res.json();
+            if (res.status === 200) {
+                setMessage("create service successfully");
+            } else {
+                setMessage("Some error occured");
+            }
+        } catch (err) {
+            console.log(err);
+        }
         setIsNewAdminModalOpen(false);
     }
 
