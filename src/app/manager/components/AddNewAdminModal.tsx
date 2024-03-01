@@ -1,5 +1,5 @@
 "use client";
-import { Dialog, useState } from "@headlessui/react";
+import { Dialog} from "@headlessui/react";
 
 interface Props {
     isOpen: boolean;
@@ -14,12 +14,6 @@ export default function AddNewAdminModal({
     onConfirm,
     onClose,
 }: Props) {
-    // const [firstName, setFirstName] = useState("")
-    // const [lastName, setLastName] = useState("")
-    // const [email, setEmail] = useState("")
-    // const [password, setPassword] = useState("")
-    // const [startTime, setStartTime] = useState(0)
-    // const [endTime, setEndTime] = useState(0)
 
     return (
         <Dialog
