@@ -16,6 +16,9 @@ export default function Page() {
     const [isLoading, setLoading] = useState(true);
     const [message, setMessage] = useState("");
 
+    const [categoryData, setCategoryData] = useState<any>(null);
+    const [branchList, setBranchList] = useState<any>();
+
     useEffect(() => {
         fetch(`${api}/staff`, {
             method: "GET",
@@ -42,11 +45,39 @@ export default function Page() {
                 setAdminData(data);
                 setLoading(false);
             });
+
+        fetch(`${api}/categories`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "ngrok-skip-browser-warning": "69420",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setCategoryData(data);
+                setLoading(false);
+            });
+
+        fetch(`${api}/brancheslist`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "ngrok-skip-browser-warning": "69420",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setBranchList(data);
+                setLoading(false);
+            });
     }, []);
 
     if (isLoading) return <p>Loading...</p>;
     if (!adminData) return <p>No profile data</p>;
     if (!staffData) return <p>No profile data</p>;
+    if (!branchList) return <p>No profile data</p>;
+    if (!categoryData) return <p>No profile data</p>;
 
     function handleConfirm() {
         setIsConfirmModalOpen(false);
@@ -96,7 +127,36 @@ export default function Page() {
         setIsNewAdminModalOpen(true);
     }
 
-    function handleConfirmAddNewStaff() {
+    async function handleConfirmAddNewStaff(e: any) {
+        e.preventDefault();
+
+        try {
+            let res = await fetch(`${api}/staff`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "69420",
+                },
+                body: JSON.stringify({
+                    firstName: e.target.firstName.value,
+                    lastName: e.target.lastName.value,
+                    email: e.target.email.value,
+                    password: e.target.password.value,
+                    startTime: e.target.startTime.value,
+                    endTime: e.target.endTime.value,
+                    categoryId: e.target.categoryId.selectedOptions[0].value,
+                    branchId: e.target.branchId.selectedOptions[0].value,
+                }),
+            });
+            let resJson = await res.json();
+            if (res.status === 200) {
+                setMessage("create service successfully");
+            } else {
+                setMessage("Some error occured");
+            }
+        } catch (err) {
+            console.log(err);
+        }
         setIsNewStaffModalOpen(false);
     }
 
@@ -324,6 +384,8 @@ export default function Page() {
                 title={"Add New Staff"}
                 onConfirm={handleConfirmAddNewStaff}
                 onClose={handleCloseAddNewStaffModal}
+                categoryData={categoryData}
+                branchList={branchList}
             />
         </div>
     );
