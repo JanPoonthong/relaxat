@@ -1,6 +1,80 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { toTitleCase } from "../../../lib/helper";
+import { api } from "../../../lib/api";
 
 export default function Page() {
+    const [isLoading, setLoading] = useState(true);
+
+    const [branchList, setBranchList] = useState<any>();
+    const [categoryData, setCategoryData] = useState<any>(null);
+    const [selectedBranch, setSelectBranch] = useState(0);
+    const [selectedCategory, setSelectedCategory] = useState(0);
+
+    const [serviceData, setServiceData] = useState<any>(null);
+
+    const handleChangeCategory = (e: any) => {
+        setSelectedCategory(e.target.selectedOptions[0].value);
+    };
+
+    const handleChangeBranch = (e: any) => {
+        console.log(e.target.selectedOptions[0].value);
+        setSelectBranch(e.target.selectedOptions[0].value);
+    };
+
+    useEffect(() => {
+        fetch(`${api}/brancheslist`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "ngrok-skip-browser-warning": "69420",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setBranchList(data);
+                setLoading(false);
+            });
+
+        fetch(`${api}/categories`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "ngrok-skip-browser-warning": "69420",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setCategoryData(data);
+                setLoading(false);
+            });
+    }, []);
+
+    useEffect(() => {
+        fetch(
+            `${api}/services?categoryId=${selectedCategory}&branchId=${selectedBranch}`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "69420",
+                },
+            },
+        )
+            .then((res) => res.json())
+            .then((data) => {
+                setServiceData(data);
+                setLoading(false);
+            });
+    }, [selectedBranch, selectedCategory]);
+
+    if (isLoading) return <p>Loading...</p>;
+    if (!branchList) return <p>No profile data</p>;
+    if (!serviceData) return <p>No profile data</p>;
+    if (!categoryData) return <p>No profile data</p>;
+
     return (
         <div className="container">
             <div className="w-1/2 mb-6">
@@ -12,10 +86,20 @@ export default function Page() {
                         <select
                             className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-state"
+                            name="branchId"
+                            onChange={handleChangeBranch}
                         >
-                            <option>Siam Paragon</option>
-                            <option>Mega Bangna</option>
-                            <option>ABAC</option>
+                            <option>Select branch</option>
+                            {branchList.data.map((each: any) => {
+                                return (
+                                    <option
+                                        value={each.branch_id}
+                                        key={each.branch_id}
+                                    >
+                                        {toTitleCase(each.branch_name)}
+                                    </option>
+                                );
+                            })}
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                             <svg
@@ -36,10 +120,20 @@ export default function Page() {
                         <select
                             className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-state"
+                            name="categoryId"
+                            onChange={handleChangeCategory}
                         >
-                            <option>Hair</option>
-                            <option>Nail</option>
-                            <option>Spa</option>
+                            <option>Select category</option>
+                            {categoryData.data.map((each: any) => {
+                                return (
+                                    <option
+                                        value={each.category_id}
+                                        key={each.category_id}
+                                    >
+                                        {toTitleCase(each.category_name)}
+                                    </option>
+                                );
+                            })}
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                             <svg
@@ -61,9 +155,41 @@ export default function Page() {
                             className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             id="grid-state"
                         >
-                            <option>Man Hair Cut</option>
-                            <option>Hair Dye</option>
-                            <option>Hair Wash</option>
+                            <option>Select service</option>
+                            {serviceData.data.map((each: any) => {
+                                return (
+                                    <option
+                                        value={each.service_id}
+                                        key={each.service_id}
+                                    >
+                                        {toTitleCase(each.service_name)}
+                                    </option>
+                                );
+                            })}
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg
+                                className="fill-current h-4 w-4"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                            >
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div className="mb-4">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Select Staff
+                    </label>
+                    <div className="relative">
+                        <select
+                            className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                            id="grid-state"
+                        >
+                            <option>John Doe</option>
+                            <option>Jane Doe</option>
+                            <option>Mary Doe</option>
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                             <svg
@@ -108,30 +234,6 @@ export default function Page() {
                     {/*<p className="text-red-500 text-xs italic">Please fill out this field.</p>*/}
                 </div>
 
-                <div className="mb-4">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Select Employee
-                    </label>
-                    <div className="relative">
-                        <select
-                            className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-state"
-                        >
-                            <option>John Doe</option>
-                            <option>Jane Doe</option>
-                            <option>Mary Doe</option>
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <svg
-                                className="fill-current h-4 w-4"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20"
-                            >
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
                 <div className="float-end mt-3">
                     <Link
                         href={"/user/appointments"}
