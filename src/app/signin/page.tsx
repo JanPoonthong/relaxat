@@ -1,10 +1,12 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { api } from "../lib/api";
 
 export default function Page() {
+    const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
@@ -24,12 +26,13 @@ export default function Page() {
                     password: password,
                 }),
             });
-            console.log(res);
             let resJson = await res.json();
             if (res.status === 200) {
+                router.push("/");
                 setEmail("");
                 setPassword("");
                 setMessage("Login successfully");
+                localStorage.setItem("session", JSON.stringify(resJson.data));
             } else {
                 setMessage("Some error occured");
             }
