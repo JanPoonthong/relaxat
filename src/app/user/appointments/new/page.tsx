@@ -173,7 +173,7 @@ export default function Page() {
                 setStaffAvailableTime(data);
                 setLoading(false);
             });
-    }, [selectedAppointmentDate]);
+    });
 
     if (isLoading) return <p>Loading...</p>;
     if (!branchList) return <p>No profile data</p>;

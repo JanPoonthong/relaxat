@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
 import { Chart } from "react-google-charts";
+import { useEffect, useState } from "react";
+import { api } from "../../lib/api";
 
 export const data = [
     ["Year", "Sales"],
@@ -23,7 +25,33 @@ export const options = {
     legend: "none",
 };
 
-export default function TotalVistor() {
+export default function TotalVistor({ session }: { session: any }) {
+    const [data, setData] = useState<any>(null);
+    const [isLoading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch(`${api}/financial/totalVisitors?branchId=${session?.branch_id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "ngrok-skip-browser-warning": "69420",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setData(["Year", "Sales"]);
+                setData((prev: any) => [prev, ...data.data]);
+                setLoading(false);
+            });
+    });
+
+    if (isLoading) return <p>Loading...</p>;
+    if (!data) return <p>No profile data</p>;
+
+    if (data[0][0] === "Year" && data[0][1] === "Sales") {
+        return <p>No data</p>;
+    }
+
     return (
         <Chart
             chartType="AreaChart"

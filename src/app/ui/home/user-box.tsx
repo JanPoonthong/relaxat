@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function UserBox() {
     const [session, setSession] = useState(
-        JSON.parse(localStorage.getItem("session")),
+        JSON.parse(localStorage.getItem("session") || "{}"),
     );
 
     const handleOnClick = () => {
