@@ -1,21 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function UserBox() {
-    const [session, setSession] = useState(
-        JSON.parse(localStorage.getItem("session") || "{}"),
-    );
+    let session;
+
+    if (typeof localStorage !== "undefined") {
+        session = JSON.parse(localStorage.getItem("session") || "{}");
+    }
+
+    if (JSON.stringify(session) === "{}") return <p>Go /signin</p>;
 
     const handleOnClick = () => {
         localStorage.removeItem("session");
-        setSession(null);
     };
 
     return (
         <div>
-            {session ? (
+            {JSON.stringify(session) !== "{}" ? (
                 <div className="flex items-center gap-3 pr-3">
                     <p>{session.first_name}</p>
                     <button
@@ -27,7 +31,7 @@ export default function UserBox() {
                     </button>
                 </div>
             ) : (
-                <>
+                <div>
                     <Link href="/signin">
                         <button
                             type="button"
@@ -44,7 +48,7 @@ export default function UserBox() {
                             Sign Up
                         </button>
                     </Link>
-                </>
+                </div>
             )}
         </div>
     );

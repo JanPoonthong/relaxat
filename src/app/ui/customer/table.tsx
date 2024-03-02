@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/api";
+import { toTitleCase } from "../../lib/helper";
 
 // const data = [
 //     { id: 1, first: "Mark", last: "Otto", service: "Haircut" },
@@ -70,8 +71,12 @@ export default function Table() {
                                 >
                                     {index + 1}
                                 </th>
-                                <td className="px-6 py-4">{each.first_name}</td>
-                                <td className="px-6 py-4">{each.last_name}</td>
+                                <td className="px-6 py-4">
+                                    {toTitleCase(each.first_name)}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {toTitleCase(each.last_name)}
+                                </td>
                                 <td className="px-6 py-4">
                                     {each.service_name}
                                 </td>

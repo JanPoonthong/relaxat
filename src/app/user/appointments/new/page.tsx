@@ -7,9 +7,6 @@ import { api } from "../../../lib/api";
 import { redirect } from "next/navigation";
 
 export default function Page() {
-    const session = localStorage.getItem("session");
-    if (!session) redirect("/signin");
-
     const [isLoading, setLoading] = useState(true);
     const [message, setMessage] = useState("");
 

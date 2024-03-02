@@ -3,6 +3,7 @@ import React from "react";
 import { Chart } from "react-google-charts";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/api";
+import { redirect } from "next/navigation";
 
 export const data = [
     ["Year", "Sales"],
@@ -43,13 +44,13 @@ export default function TotalVistor({ session }: { session: any }) {
                 setData((prev: any) => [prev, ...data.data]);
                 setLoading(false);
             });
-    });
+    }, [session?.branch_id]);
 
     if (isLoading) return <p>Loading...</p>;
     if (!data) return <p>No profile data</p>;
 
     if (data[0][0] === "Year" && data[0][1] === "Sales") {
-        return <p>No data</p>;
+        return <div>No data</div>;
     }
 
     return (

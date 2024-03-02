@@ -9,15 +9,24 @@ import { DonutChart, total } from "./donut-chart";
 import IncomeSummary from "./income-summary";
 import TotalVistor from "./total-vistor";
 import { redirect } from "next/navigation";
+import { useState } from "react";
 
 export default function FinancialPage() {
-    let session = localStorage.getItem("session");
-    if (!session) return redirect("/signin");
+    let session;
 
-    session = JSON.parse(session);
+    if (typeof localStorage !== "undefined") {
+        session = JSON.parse(localStorage.getItem("session") || "{}");
+    }
+
+    if (JSON.stringify(session) === "{}")
+        return (
+            <div>
+                <p>Go /signin</p>
+            </div>
+        );
 
     return (
-        <>
+        <div>
             <NavBar />
             <div className="flex gap-[6rem]">
                 <SideBar />
@@ -48,6 +57,6 @@ export default function FinancialPage() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

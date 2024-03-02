@@ -10,9 +10,11 @@ export default function Page() {
     const [message, setMessage] = useState("");
 
     const [appointmentData, setAppointmentData] = useState<any>(null);
-    const [session, setSession] = useState(
-        JSON.parse(localStorage.getItem("session") || "{}"),
-    );
+
+    const [session, setSession] = useState<any>();
+    if (typeof window !== "undefined") {
+        setSession(JSON.parse(localStorage.getItem("session") || "{}"));
+    }
 
     useEffect(() => {
         fetch(`${api}/appointments?customerId=${session?.person_id}`, {
@@ -31,8 +33,6 @@ export default function Page() {
 
     if (isLoading) return <p>Loading...</p>;
     if (!appointmentData) return <p>No profile data</p>;
-
-    console.log(appointmentData);
 
     return (
         <div className="container">

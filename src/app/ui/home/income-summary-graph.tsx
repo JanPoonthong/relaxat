@@ -2,12 +2,6 @@
 import React from "react";
 import { Chart } from "react-google-charts";
 
-const fetchData = async () => {
-    const response = await fetch("");
-    const movies = await response.json();
-    console.log(movies);
-};
-
 export const data = [
     ["Year", "Sales"],
     ["2004", 10000],
