@@ -1,6 +1,43 @@
+"use client";
 import Link from "next/link";
 import AppointmentCard from "@/app/user/components/AppointmentCard";
+import { useState, useEffect } from "react";
+import { api } from "../../lib/api";
+import { redirect } from "next/navigation";
+
 export default function Page() {
+    const [isLoading, setLoading] = useState(true);
+    const [message, setMessage] = useState("");
+
+    const [appointmentData, setAppointmentData] = useState<any>(null);
+
+    useEffect(() => {
+        let session = localStorage.getItem("session");
+        if (!session) {
+            return redirect("/signin");
+        } else {
+            session = JSON.parse(session);
+        }
+
+        fetch(`${api}/appointments?customerId=${session?.person_id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "ngrok-skip-browser-warning": "69420",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setAppointmentData(data);
+                setLoading(false);
+            });
+    }, []);
+
+    if (isLoading) return <p>Loading...</p>;
+    if (!appointmentData) return <p>No profile data</p>;
+
+    console.log(appointmentData);
+
     return (
         <div className="container">
             <div className="flex justify-between ">
@@ -20,19 +57,46 @@ export default function Page() {
                     <p className="text-xl font-bold text-gray-600">
                         Coming Appointments
                     </p>
-                    <AppointmentCard buttonText="cancel" />
+                    {appointmentData.data.upComingAppointments.map(
+                        (each: any) => {
+                            return (
+                                <AppointmentCard
+                                    key={each.appointment_id}
+                                    buttonText="cancel"
+                                />
+                            );
+                        },
+                    )}
                 </div>
                 <div>
                     <p className="text-xl font-bold text-gray-600">
                         Past Appointments
                     </p>
-                    <AppointmentCard buttonText="review" />
+                    {appointmentData.data.finishedAppointments.map(
+                        (each: any) => {
+                            return (
+                                <AppointmentCard
+                                    key={each.appointment_id}
+                                    buttonText="review"
+                                />
+                            );
+                        },
+                    )}
                 </div>
                 <div>
                     <p className="text-xl font-bold text-gray-600">
                         Reviewed Appointments
                     </p>
-                    <AppointmentCard buttonText="" />
+                    {appointmentData.data.reviewedAppointments.map(
+                        (each: any) => {
+                            return (
+                                <AppointmentCard
+                                    key={each.appointment_id}
+                                    buttonText=""
+                                />
+                            );
+                        },
+                    )}
                 </div>
             </div>
         </div>
