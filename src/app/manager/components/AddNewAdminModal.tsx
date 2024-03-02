@@ -1,5 +1,5 @@
 "use client";
-import { Dialog} from "@headlessui/react";
+import { Dialog } from "@headlessui/react";
 
 interface Props {
     isOpen: boolean;
@@ -14,7 +14,6 @@ export default function AddNewAdminModal({
     onConfirm,
     onClose,
 }: Props) {
-
     return (
         <Dialog
             as="div"

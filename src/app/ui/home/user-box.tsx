@@ -1,23 +1,51 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 
 export default function UserBox() {
+    const [session, setSession] = useState(
+        JSON.parse(localStorage.getItem("session")),
+    );
+
+    const handleOnClick = () => {
+        localStorage.removeItem("session");
+        setSession(null);
+    };
+
     return (
         <div>
-            <Link href="/signin">
-                <button
-                    type="button"
-                    className="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2"
-                >
-                    Sign In
-                </button>
-            </Link>
-            <Link href="/signup">
-                <button type="button" className="hover:underline px-5 py-2.5">
-                    Sign Up
-                </button>
-            </Link>
+            {session ? (
+                <div className="flex items-center gap-3 pr-3">
+                    <p>{session.first_name}</p>
+                    <button
+                        type="button"
+                        onClick={handleOnClick}
+                        className="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2"
+                    >
+                        Log out
+                    </button>
+                </div>
+            ) : (
+                <>
+                    <Link href="/signin">
+                        <button
+                            type="button"
+                            className="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2"
+                        >
+                            Sign In
+                        </button>
+                    </Link>
+                    <Link href="/signup">
+                        <button
+                            type="button"
+                            className="hover:underline px-5 py-2.5"
+                        >
+                            Sign Up
+                        </button>
+                    </Link>
+                </>
+            )}
         </div>
     );
 }
