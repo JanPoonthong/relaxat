@@ -13,11 +13,12 @@ interface StarRatingProps {
 export default function Review({
     commentDate,
     showName,
+    staff,
 }: {
     commentDate: number;
     showName: boolean;
+    staff: boolean;
 }) {
-    const differenceInDays = Math.round(commentDate / 86400000);
     const [likeIconBool, setLikeIconBool] = useState(false);
     const [starRating, setStarRating] = useState(0);
     const [thumbUpIconBool, setThumbUpIconBool] = useState(false);
@@ -39,18 +40,33 @@ export default function Review({
         );
 
     useEffect(() => {
-        fetch(`${api}/reviews?branchId=${session.branch_id}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "ngrok-skip-browser-warning": "69420",
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setData(data.data);
-                setLoading(false);
-            });
+        if (staff === true) {
+            fetch(`${api}/reviews?staffId=${session.person_id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "69420",
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    setData(data.data);
+                    setLoading(false);
+                });
+        } else {
+            fetch(`${api}/reviews?branchId=${session.branch_id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "69420",
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    setData(data.data);
+                    setLoading(false);
+                });
+        }
     }, [session.branch_id]);
 
     if (isLoading) return <p>loading...</p>;
@@ -60,6 +76,9 @@ export default function Review({
 
     let formatData: any[] = [];
     data.map((each: any) => {
+        if (staff === true) {
+            each.staff_name = each.cusomter_name;
+        }
         formatData.push({
             id: each.appointment_id,
             user: each.customer_name,

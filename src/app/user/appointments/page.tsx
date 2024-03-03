@@ -11,10 +11,18 @@ export default function Page() {
 
     const [appointmentData, setAppointmentData] = useState<any>(null);
 
-    const [session, setSession] = useState<any>();
-    if (typeof window !== "undefined") {
-        setSession(JSON.parse(localStorage.getItem("session") || "{}"));
+    let session = "{}";
+
+    if (typeof localStorage !== "undefined") {
+        session = JSON.parse(localStorage.getItem("session") || "{}");
     }
+
+    if (JSON.stringify(session) === "{}")
+        return (
+            <div>
+                <p>Go /signin</p>
+            </div>
+        );
 
     useEffect(() => {
         fetch(`${api}/appointments?customerId=${session?.person_id}`, {
@@ -29,7 +37,7 @@ export default function Page() {
                 setAppointmentData(data);
                 setLoading(false);
             });
-    });
+    }, []);
 
     if (isLoading) return <p>Loading...</p>;
     if (!appointmentData) return <p>No profile data</p>;

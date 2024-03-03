@@ -6,7 +6,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/api";
 
-export default function Calendar() {
+export default function Calendar({ staff }: { staff: boolean }) {
     let session = "{}";
     const [data, setData] = useState<any>();
     const [isLoading, setLoading] = useState(true);
@@ -23,18 +23,34 @@ export default function Calendar() {
         );
 
     useEffect(() => {
-        fetch(`${api}/appointments/?branchId=${session.branch_id}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "ngrok-skip-browser-warning": "69420",
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setData(data.data);
-                setLoading(false);
-            });
+        if (staff === true) {
+            fetch(`${api}/appointments/?staffId=${session.person_id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "69420",
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    setData(data.data);
+                    setLoading(false);
+                });
+        } else {
+            fetch(`${api}/appointments/?branchId=${session.branch_id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "69420",
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    setData(data.data);
+                    setLoading(false);
+                });
+        }
     }, [session.branch_id]);
 
     if (isLoading) return <p>Loading...</p>;
@@ -42,6 +58,9 @@ export default function Calendar() {
 
     let formatData: any = [];
     data.map((each: any) => {
+        if (staff === true) {
+            each.staff_name = each.customer_name;
+        }
         let tmp = {
             id: each.appointment_id,
             title: each.staff_name,

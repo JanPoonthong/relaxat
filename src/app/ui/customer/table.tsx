@@ -59,6 +59,9 @@ export default function Table() {
                         <th scope="col" className="px-6 py-3">
                             Info
                         </th>
+                        <th scope="col" className="px-6 py-3">
+                            Banned
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -89,6 +92,13 @@ export default function Table() {
                                     >
                                         More Info
                                     </Link>
+                                </td>
+                                <td className="px-6 py-4">
+                                    {each.is_banned === true ? (
+                                        <p className="text-red-700 font-bold">
+                                            Banned
+                                        </p>
+                                    ) : null}
                                 </td>
                             </tr>
                         );

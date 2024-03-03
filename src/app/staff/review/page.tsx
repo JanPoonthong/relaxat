@@ -13,7 +13,11 @@ export default function Page() {
             <div className="flex gap-[6rem]">
                 <SideBar />
                 <div className="flex justify-between w-full pt-12 flex-wrap mr-5">
-                    <Review commentDate={commentDate} showName={false} />
+                    <Review
+                        staff={true}
+                        commentDate={commentDate}
+                        showName={false}
+                    />
                 </div>
             </div>
         </>

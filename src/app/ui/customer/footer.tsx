@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { api } from "../../lib/api";
 
-export default function Footer({id}: {id: any}) {
+export default function Footer({ id }: { id: any }) {
     const [showImg, setShowImg] = useState(false);
     const [showBan, setShowBan] = useState(false);
     const [message, setMessage] = useState("");
@@ -14,7 +14,7 @@ export default function Footer({id}: {id: any}) {
     }
 
     async function onClickHandlerShowBan(bool: boolean, str: string) {
-        console.log(id)
+        console.log(id);
         if (str === "ban") {
             try {
                 let res = await fetch(`${api}/customers/${id}/banned`, {
