@@ -2,22 +2,45 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { api } from "../../lib/api";
 
-export default function Footer() {
+export default function Footer({id}: {id: any}) {
     const [showImg, setShowImg] = useState(false);
     const [showBan, setShowBan] = useState(false);
+    const [message, setMessage] = useState("");
 
     function onClickHandlerShowImg(bool: boolean) {
         setShowImg(bool);
     }
 
-    function onClickHandlerShowBan(bool: boolean) {
+    async function onClickHandlerShowBan(bool: boolean, str: string) {
+        console.log(id)
+        if (str === "ban") {
+            try {
+                let res = await fetch(`${api}/customers/${id}/banned`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "ngrok-skip-browser-warning": "69420",
+                    },
+                });
+                let resJson = await res.json();
+                if (res.status === 200) {
+                    setMessage("Delete service successfully");
+                } else {
+                    setMessage("Some error occured");
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
         setShowBan(bool);
     }
     return (
         <div className="flex gap-5 justify-between items-center">
             <button
-                onClick={() => onClickHandlerShowBan(true)}
+                onClick={() => onClickHandlerShowBan(true, "open")}
                 className="text-red-500 underline"
             >
                 Banned
@@ -74,14 +97,18 @@ export default function Footer() {
                         <div className="ban-footer">
                             <div className="flex justify-end w-full gap-3">
                                 <button
-                                    onClick={() => onClickHandlerShowBan(false)}
+                                    onClick={() =>
+                                        onClickHandlerShowBan(false, "close")
+                                    }
                                     className="text-gray-600"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded"
-                                    onClick={() => onClickHandlerShowBan(false)}
+                                    onClick={() =>
+                                        onClickHandlerShowBan(false, "ban")
+                                    }
                                 >
                                     Confirm
                                 </button>

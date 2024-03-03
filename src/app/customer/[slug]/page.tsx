@@ -183,7 +183,7 @@ export default function Page({ params }: { params: { slug: string } }) {
                                 </Border>
                             </div>
                             <div className="flex justify-between absolute bottom-1 w-[99%]">
-                                <Footer />
+                                <Footer id={params.slug}/>
                                 <button
                                     className="bg-violet-500 hover:bg-violet-600 text-white font-bold py-1 px-2 rounded"
                                     type="submit"
