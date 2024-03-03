@@ -29,6 +29,21 @@ export default function FinancialPage() {
             </div>
         );
 
+    useEffect(() => {
+        fetch(`${api}/financial/servicesUsage`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "ngrok-skip-browser-warning": "69420",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setData(data.data);
+                setLoading(false);
+            });
+    }, []);
+
     if (isLoading) return <p>Loading...</p>;
     if (!data) return <p>No profile data</p>;
 

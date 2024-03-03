@@ -32,9 +32,6 @@ export default function Footer() {
                 <button className="bg-slate-500 hover:bg-slate-600 text-white font-bold py-1 px-2 rounded">
                     Close
                 </button>
-                <button className="bg-violet-500 hover:bg-violet-600 text-white font-bold py-1 px-2 rounded">
-                    Save Changes
-                </button>
             </div>
             <div className="absolute top-2/4 left-2/4 translate-y-[-50%] translate-x-[-50%]">
                 {showImg && (
