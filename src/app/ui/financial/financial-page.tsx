@@ -5,14 +5,18 @@ import Export from "../home/export";
 import IncomeSummaryGraph from "../home/income-summary-graph";
 import NavBar from "../home/nav-bar";
 import SideBar from "../home/side-bar";
-import { DonutChart, total } from "./donut-chart";
+import { DonutChart } from "./donut-chart";
 import IncomeSummary from "./income-summary";
 import TotalVistor from "./total-vistor";
 import { redirect } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { api } from "../../lib/api";
 
 export default function FinancialPage() {
-    let session;
+    const [data, setData] = useState<any>(null);
+    const [isLoading, setLoading] = useState(true);
+
+    let session = "{}";
 
     if (typeof localStorage !== "undefined") {
         session = JSON.parse(localStorage.getItem("session") || "{}");
@@ -24,6 +28,13 @@ export default function FinancialPage() {
                 <p>Go /signin</p>
             </div>
         );
+
+    if (isLoading) return <p>Loading...</p>;
+    if (!data) return <p>No profile data</p>;
+
+    const total = data
+        .slice(1)
+        .reduce((acc: any, [, value]: any) => acc + Number(value), 0);
 
     return (
         <div>
@@ -48,7 +59,7 @@ export default function FinancialPage() {
                         <div className="w-[50%]">
                             <h2 className="font-bold text-xl">Services used</h2>
                             <Border style="h-[84%]">
-                                <DonutChart />
+                                <DonutChart data={data} />
                                 <h3 className="font-bold text-2xl relative bottom-12 pl-6">
                                     Total: {total}
                                 </h3>

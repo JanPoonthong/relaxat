@@ -1,17 +1,8 @@
 "use client";
 import React from "react";
 import { Chart } from "react-google-charts";
-
-const data = [
-    ["Service", "Service used"],
-    ["Haircut", 200],
-    ["Message", 55],
-    ["Nail", 60],
-];
-
-export const total = data
-    .slice(1)
-    .reduce((acc, [, value]) => acc + Number(value), 0);
+import { useEffect, useState } from "react";
+import { api } from "../../lib/api";
 
 const options = {
     pieHole: 0.4,
@@ -23,7 +14,7 @@ const options = {
     },
 };
 
-export function DonutChart() {
+export function DonutChart({ data }: { data: any }) {
     return (
         <Chart
             chartType="PieChart"
