@@ -6,7 +6,15 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/api";
 
-export default function Calendar({ staff }: { staff: boolean }) {
+export default function Calendar({
+    staff,
+    admin,
+    user,
+}: {
+    staff: boolean;
+    admin: boolean;
+    user: boolean;
+}) {
     let session = "{}";
     const [data, setData] = useState<any>();
     const [isLoading, setLoading] = useState(true);
@@ -37,7 +45,7 @@ export default function Calendar({ staff }: { staff: boolean }) {
                     setData(data.data);
                     setLoading(false);
                 });
-        } else {
+        } else if (admin === true) {
             fetch(`${api}/appointments/?branchId=${session.branch_id}`, {
                 method: "GET",
                 headers: {
@@ -48,6 +56,19 @@ export default function Calendar({ staff }: { staff: boolean }) {
                 .then((res) => res.json())
                 .then((data) => {
                     setData(data.data);
+                    setLoading(false);
+                });
+        } else {
+            fetch(`${api}/appointments/?customerId=${session.person_id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "69420",
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    setData(data.data.upComingAppointments);
                     setLoading(false);
                 });
         }

@@ -9,7 +9,7 @@ export default function Page() {
             <div className="flex gap-[6rem]">
                 <SideBar />
                 <div className="w-full pt-12 mr-5">
-                    <Calendar staff={true} />
+                    <Calendar staff={true} admin={false} user={false} />
                 </div>
             </div>
         </>
