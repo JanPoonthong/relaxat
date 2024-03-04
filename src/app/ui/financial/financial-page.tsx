@@ -30,8 +30,7 @@ export default function FinancialPage() {
         );
 
     useEffect(() => {
-        fetch(`${api}/financial/servicesUsage`, {
-            //TODO
+        fetch(`${api}/financial/servicesUsage/${session.branch_id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

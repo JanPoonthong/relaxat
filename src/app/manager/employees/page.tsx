@@ -3,6 +3,8 @@ import ConfirmModal from "@/app/modals/ConfirmModal";
 import { useState, useEffect } from "react";
 import AddNewAdminModal from "@/app/manager/components/AddNewAdminModal";
 import AddNewStaffModal from "@/app/manager/components/AddNewStaffModal";
+import AddNewEditStaffModel from "@/app/manager/components/AddNewEditStaffModel";
+import AddNewEditAdminModel from "@/app/manager/components/AddNewEditAdminModel";
 
 import { api } from "../../lib/api";
 
@@ -10,6 +12,11 @@ export default function Page() {
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     const [isAddNewAdminModalOpen, setIsNewAdminModalOpen] = useState(false);
     const [isAddNewStaffModalOpen, setIsNewStaffModalOpen] = useState(false);
+    const [isAddNewEditStaffModalOpen, setIsNewEditStaffModalOpen] =
+        useState(false);
+
+    const [isAddNewEditAdminModalOpen, setIsAddNewEditAdminModalOpen] =
+        useState(false);
 
     const [staffData, setStaffData] = useState<any>();
     const [adminData, setAdminData] = useState<any>();
@@ -18,6 +25,9 @@ export default function Page() {
 
     const [categoryData, setCategoryData] = useState<any>(null);
     const [branchList, setBranchList] = useState<any>();
+
+    const [staffId, setStaffId] = useState(0);
+    const [adminId, setAdminId] = useState(0);
 
     useEffect(() => {
         fetch(`${api}/staff`, {
@@ -127,6 +137,35 @@ export default function Page() {
         setIsNewAdminModalOpen(true);
     }
 
+    async function handleConfirmAddNewEditStaff(e: any) {
+        e.preventDefault();
+
+        try {
+            let res = await fetch(`${api}/staff/${staffId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "69420",
+                },
+                body: JSON.stringify({
+                    startTime: e.target.startTime.value,
+                    endTime: e.target.endTime.value,
+                    categoryId: e.target.categoryId.selectedOptions[0].value,
+                    branchId: e.target.branchId.selectedOptions[0].value,
+                }),
+            });
+            let resJson = await res.json();
+            if (res.status === 200) {
+                setMessage("create service successfully");
+            } else {
+                setMessage("Some error occured");
+            }
+        } catch (err) {
+            console.log(err);
+        }
+        setIsNewAdminModalOpen(false);
+    }
+
     async function handleConfirmAddNewStaff(e: any) {
         e.preventDefault();
 
@@ -160,8 +199,44 @@ export default function Page() {
         setIsNewStaffModalOpen(false);
     }
 
+    async function handleConfirmAddNewEditAdmin(e: any) {
+        e.preventDefault();
+
+        try {
+            let res = await fetch(`${api}/admins/${adminId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "69420",
+                },
+                body: JSON.stringify({
+                    firstName: e.target.firstname.value,
+                    lastName: e.target.lastname.value,
+                }),
+            });
+            let resJson = await res.json();
+            if (res.status === 200) {
+                setMessage("create service successfully");
+            } else {
+                setMessage("Some error occured");
+            }
+        } catch (err) {
+            console.log(err);
+        }
+
+        setIsAddNewEditAdminModalOpen(false);
+    }
+
     function handleCloseAddNewStaffModal() {
         setIsNewStaffModalOpen(false);
+    }
+
+    function handleCloseAddNewStaffEditModal() {
+        setIsNewEditStaffModalOpen(false);
+    }
+
+    function handleCloseAddNewAdminEditModal() {
+        setIsAddNewEditAdminModalOpen(false);
     }
 
     function closeAddNewStaffModal() {
@@ -170,6 +245,14 @@ export default function Page() {
 
     function openAddNewStaffModal() {
         setIsNewStaffModalOpen(true);
+    }
+
+    function openAddNewEditStaffModel() {
+        setIsNewEditStaffModalOpen(true);
+    }
+
+    function closeAddNewEditStaffModel() {
+        setIsNewEditStaffModalOpen(false);
     }
 
     return (
@@ -248,12 +331,17 @@ export default function Page() {
                                             {each.email}
                                         </td>
                                         <td className="px-6 py-4 text-right">
-                                            <a
-                                                href="#"
+                                            <button
+                                                onClick={() => {
+                                                    setIsNewEditStaffModalOpen(
+                                                        true,
+                                                    );
+                                                    setStaffId(each.person_id);
+                                                }}
                                                 className="font-medium text-blue-600 hover:underline"
                                             >
                                                 Edit
-                                            </a>
+                                            </button>
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <button
@@ -339,12 +427,17 @@ export default function Page() {
                                             {each.email}
                                         </td>
                                         <td className="px-6 py-4 text-right">
-                                            <a
-                                                href="#"
+                                            <button
+                                                onClick={() => {
+                                                    setIsAddNewEditAdminModalOpen(
+                                                        true,
+                                                    );
+                                                    setAdminId(each.person_id);
+                                                }}
                                                 className="font-medium text-blue-600 hover:underline"
                                             >
                                                 Edit
-                                            </a>
+                                            </button>
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <button
@@ -386,6 +479,22 @@ export default function Page() {
                 onClose={handleCloseAddNewStaffModal}
                 categoryData={categoryData}
                 branchList={branchList}
+            />
+
+            <AddNewEditStaffModel
+                isOpen={isAddNewEditStaffModalOpen}
+                title={"Edit"}
+                onConfirm={handleConfirmAddNewEditStaff}
+                onClose={handleCloseAddNewStaffEditModal}
+                categoryData={categoryData}
+                branchList={branchList}
+            />
+
+            <AddNewEditAdminModel
+                isOpen={isAddNewEditAdminModalOpen}
+                title={"Edit"}
+                onConfirm={handleConfirmAddNewEditAdmin}
+                onClose={handleCloseAddNewAdminEditModal}
             />
         </div>
     );

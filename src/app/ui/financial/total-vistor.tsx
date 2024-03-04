@@ -5,20 +5,12 @@ import { useEffect, useState } from "react";
 import { api } from "../../lib/api";
 import { redirect } from "next/navigation";
 
-export const data = [
-    ["Year", "Sales"],
-    ["2004", 10],
-    ["2005", 25],
-    ["2006", 10],
-    ["2007", 30],
-    ["2008", 30],
-];
 export const options = {
     vAxis: {
         minValue: 0,
         viewWindow: {
             min: 0,
-            max: 50,
+            max: 25,
         },
     },
     chartArea: { width: "80%", height: "70%" },
@@ -51,10 +43,6 @@ export default function TotalVistor({ session }: { session: any }) {
 
     if (isLoading) return <p>Loading...</p>;
     if (!data) return <p>No profile data</p>;
-
-    if (data[0][0] === "Year" && data[0][1] === "Sales") {
-        return <div>No data</div>;
-    }
 
     return (
         <Chart

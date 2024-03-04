@@ -3,9 +3,11 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState, useEffect } from "react";
 import { api } from "../../lib/api";
 import { toTitleCase } from "../../lib/helper";
+import EditBox from "./edit-box";
 
 export default function Page() {
     let [isOpen, setIsOpen] = useState(false);
+    let [isEditOpen, setIsEditOpen] = useState(false);
 
     const [serviceData, setServiceData] = useState<any>(null);
     const [categoryData, setCategoryData] = useState<any>(null);
@@ -20,6 +22,8 @@ export default function Page() {
 
     const [pickedCategory, setPickedCategory] = useState(0);
     const [deleteID, setDeleteID] = useState(0);
+
+    const [serviceId, setServiceId] = useState();
 
     const deleteOnClick = async (deleteID: number) => {
         try {
@@ -83,7 +87,7 @@ export default function Page() {
     }, []);
 
     const handleChangeCategory = (e: any) => {
-        setPickedCategory(e.target.selectedIndex + 1);
+        setPickedCategory(e.target.value);
     };
 
     const handleSubmit = async (e: any) => {
@@ -125,7 +129,7 @@ export default function Page() {
             ]);
         } else {
             setCheckedService((checkedService) =>
-                checkedService.filter((each) => each !== name),
+                checkedService.filter((each) => each.name !== name),
             );
         }
     };
@@ -141,6 +145,14 @@ export default function Page() {
 
     function openModal() {
         setIsOpen(true);
+    }
+
+    function openEditModal() {
+        setIsEditOpen(true);
+    }
+
+    function closeEditModel() {
+        setIsEditOpen(false);
     }
 
     return (
@@ -211,12 +223,15 @@ export default function Page() {
                                             {each.branches.join(", ")}
                                         </td>
                                         <td className="px-6 py-4 text-right">
-                                            <a
-                                                href="#"
+                                            <button
+                                                onClick={() => {
+                                                    openEditModal();
+                                                    setServiceId(each.id);
+                                                }}
                                                 className="font-medium text-blue-600 hover:underline"
                                             >
                                                 Edit
-                                            </a>
+                                            </button>
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <button
@@ -235,6 +250,14 @@ export default function Page() {
                     </table>
                 </div>
             </div>
+
+            <EditBox
+                isOpen={isEditOpen}
+                closeModal={closeEditModel}
+                categoryData={categoryData}
+                branchList={branchList}
+                serviceId={serviceId}
+            />
 
             <Dialog
                 as="div"
@@ -293,6 +316,9 @@ export default function Page() {
                                                             return (
                                                                 <option
                                                                     key={
+                                                                        each.category_id
+                                                                    }
+                                                                    value={
                                                                         each.category_id
                                                                     }
                                                                 >

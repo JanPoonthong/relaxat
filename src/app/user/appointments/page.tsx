@@ -34,10 +34,10 @@ export default function Page() {
         })
             .then((res) => res.json())
             .then((data) => {
-                setAppointmentData(data);
+                setAppointmentData(data.data);
                 setLoading(false);
             });
-    }, []);
+    }, [session.person_id]);
 
     if (isLoading) return <p>Loading...</p>;
     if (!appointmentData) return <p>No profile data</p>;
@@ -61,28 +61,43 @@ export default function Page() {
                     <p className="text-xl font-bold text-gray-600">
                         Coming Appointments
                     </p>
-                    <AppointmentCard
-                        data={appointmentData.data.upComingAppointments}
-                        buttonText="cancel"
-                    />
+                    {appointmentData.upComingAppointments.map((each: any) => {
+                        return (
+                            <AppointmentCard
+                                key={each.appointment_id}
+                                data={each}
+                                buttonText="cancel"
+                            />
+                        );
+                    })}
                 </div>
                 <div>
                     <p className="text-xl font-bold text-gray-600">
                         Past Appointments
                     </p>
-                    <AppointmentCard
-                        data={appointmentData.data.finishedAppointments}
-                        buttonText="review"
-                    />
+                    {appointmentData.finishedAppointments.map((each: any) => {
+                        return (
+                            <AppointmentCard
+                                key={each.appointment_id}
+                                data={each}
+                                buttonText="review"
+                            />
+                        );
+                    })}
                 </div>
                 <div>
                     <p className="text-xl font-bold text-gray-600">
                         Reviewed Appointments
                     </p>
-                    <AppointmentCard
-                        data={appointmentData.data.reviewedAppointments}
-                        buttonText=""
-                    />
+                    {appointmentData.reviewedAppointments.map((each: any) => {
+                        return (
+                            <AppointmentCard
+                                key={each.appointment_id}
+                                data={each}
+                                buttonText=""
+                            />
+                        );
+                    })}
                 </div>
             </div>
         </div>
