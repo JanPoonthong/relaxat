@@ -2,9 +2,13 @@
 import { useState, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
 import { api } from "../../lib/api";
+import EditDialogBox from "./edit-dialog-box";
 
 export default function Page() {
     let [isOpen, setIsOpen] = useState(false);
+
+    let [isEditOpen, setIsEditOpen] = useState(false);
+
     const [branchesData, setBranchesData] = useState<any>(null);
     const [isLoading, setLoading] = useState(true);
 
@@ -15,12 +19,26 @@ export default function Page() {
     const [adminAvailableData, setAdminAvailableData] = useState<any>();
     const [message, setMessage] = useState("");
 
+    const [data, setData] = useState<any>();
+
+    const [idOfBranch, setIdOfBranch] = useState<any>();
+
     function closeModal() {
         setIsOpen(false);
     }
 
+    function closeEditModal() {
+        setIdOfBranch(null);
+        setIsEditOpen(false);
+    }
+
     function openModal() {
         setIsOpen(true);
+    }
+
+    function openEditModal(id: number) {
+        setIdOfBranch(id);
+        setIsEditOpen(true);
     }
 
     const handleChangeAvailableAdmin = (e: any) => {
@@ -104,7 +122,20 @@ export default function Page() {
                 setAdminAvailableData(data);
                 setLoading(false);
             });
-    }, []);
+
+        fetch(`${api}/branches/${idOfBranch}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "ngrok-skip-browser-warning": "69420",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setData(data.data);
+                setLoading(false);
+            });
+    }, [idOfBranch]);
 
     if (isLoading) return <p>Loading...</p>;
     if (!branchesData) return <p>No profile data</p>;
@@ -192,12 +223,17 @@ export default function Page() {
                                             {each.branch_address}
                                         </td>
                                         <td className="px-6 py-4 text-right">
-                                            <a
-                                                href="#"
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    openEditModal(
+                                                        each.branch_id,
+                                                    )
+                                                }
                                                 className="font-medium text-blue-600 hover:underline"
                                             >
                                                 Edit
-                                            </a>
+                                            </button>
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <a
@@ -219,6 +255,12 @@ export default function Page() {
                     </table>
                 </div>
             </div>
+
+            <EditDialogBox
+                data={data}
+                isOpen={isEditOpen}
+                closeModal={closeEditModal}
+            />
 
             <Dialog
                 as="div"
@@ -248,6 +290,7 @@ export default function Page() {
                                             onChange={(e) =>
                                                 setBranchName(e.target.value)
                                             }
+                                            // defaultValue={data?.branch_name}
                                             type="text"
                                             name="service"
                                             className="mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -264,6 +307,7 @@ export default function Page() {
                                             onChange={(e) =>
                                                 setBranchAddress(e.target.value)
                                             }
+                                            // defaultValue={data?.branch_address}
                                             type="text"
                                             name="service"
                                             className="mt-2 block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -285,6 +329,7 @@ export default function Page() {
                                                 onChange={
                                                     handleChangeAvailableAdmin
                                                 }
+                                                // defaultValue={data?.admin_name}
                                             >
                                                 <option>Select Admin</option>
                                                 {adminAvailableData.data.map(
