@@ -61,46 +61,28 @@ export default function Page() {
                     <p className="text-xl font-bold text-gray-600">
                         Coming Appointments
                     </p>
-                    {appointmentData.data.upComingAppointments.map(
-                        (each: any) => {
-                            return (
-                                <AppointmentCard
-                                    key={each.appointment_id}
-                                    buttonText="cancel"
-                                />
-                            );
-                        },
-                    )}
+                    <AppointmentCard
+                        data={appointmentData.data.upComingAppointments}
+                        buttonText="cancel"
+                    />
                 </div>
                 <div>
                     <p className="text-xl font-bold text-gray-600">
                         Past Appointments
                     </p>
-                    {appointmentData.data.finishedAppointments.map(
-                        (each: any) => {
-                            return (
-                                <AppointmentCard
-                                    key={each.appointment_id}
-                                    buttonText="review"
-                                />
-                            );
-                        },
-                    )}
+                    <AppointmentCard
+                        data={appointmentData.data.finishedAppointments}
+                        buttonText="review"
+                    />
                 </div>
                 <div>
                     <p className="text-xl font-bold text-gray-600">
                         Reviewed Appointments
                     </p>
-                    {appointmentData.data.reviewedAppointments.map(
-                        (each: any) => {
-                            return (
-                                <AppointmentCard
-                                    key={each.appointment_id}
-                                    buttonText=""
-                                />
-                            );
-                        },
-                    )}
+                    <AppointmentCard
+                        data={appointmentData.data.reviewedAppointments}
+                        buttonText=""
+                    />
                 </div>
             </div>
         </div>

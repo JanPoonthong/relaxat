@@ -20,8 +20,23 @@ export default function IncomeSummaryGraph() {
     const [data, setData] = useState<any>();
     const [isLoading, setLoading] = useState(true);
 
+    let session = "{}";
+
+    if (typeof localStorage !== "undefined") {
+        session = JSON.parse(localStorage.getItem("session") || "{}");
+    }
+
+    if (JSON.stringify(session) === "{}")
+        return (
+            <div>
+                <p>Go /signin</p>
+            </div>
+        );
+
+    if (session.branch_id === undefined) return <p>Can not view data</p>;
+
     useEffect(() => {
-        fetch(`${api}/financial/sales?branchId=${1}`, {
+        fetch(`${api}/financial/sales?branchId=${session.branch_id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

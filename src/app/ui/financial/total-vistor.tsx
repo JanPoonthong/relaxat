@@ -30,6 +30,8 @@ export default function TotalVistor({ session }: { session: any }) {
     const [data, setData] = useState<any>(null);
     const [isLoading, setLoading] = useState(true);
 
+    if (session?.branch_id === undefined) return <p>Can not view data</p>;
+
     useEffect(() => {
         fetch(`${api}/financial/totalVisitors?branchId=${session?.branch_id}`, {
             method: "GET",
@@ -40,6 +42,7 @@ export default function TotalVistor({ session }: { session: any }) {
         })
             .then((res) => res.json())
             .then((data) => {
+                console.log(data);
                 setData(["Year", "Sales"]);
                 setData((prev: any) => [prev, ...data.data]);
                 setLoading(false);

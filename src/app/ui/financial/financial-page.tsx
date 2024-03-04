@@ -31,6 +31,7 @@ export default function FinancialPage() {
 
     useEffect(() => {
         fetch(`${api}/financial/servicesUsage`, {
+            //TODO
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

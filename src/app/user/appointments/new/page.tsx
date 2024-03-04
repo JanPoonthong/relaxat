@@ -29,6 +29,19 @@ export default function Page() {
 
     const [staffAvailableId, setStaffAvailableId] = useState<any>(null);
 
+    let session = "{}";
+
+    if (typeof localStorage !== "undefined") {
+        session = JSON.parse(localStorage.getItem("session") || "{}");
+    }
+
+    if (JSON.stringify(session) === "{}")
+        return (
+            <div>
+                <p>Go /signin</p>
+            </div>
+        );
+
     const handleChangeAppointmentDate = (e: any) => {
         setSelectAppointmentDate(e.target.value);
         setDisableCreateAppointment((prev) => [...prev, true]);
@@ -72,7 +85,7 @@ export default function Page() {
                 },
                 body: JSON.stringify({
                     serviceId: selectedService,
-                    customerId: 11,
+                    customerId: session.person_id,
                     appointmentDate: selectedAppointmentDate,
                     appointmentTime: selectedAppointmentTime,
                     staffId: staffAvailableId,
