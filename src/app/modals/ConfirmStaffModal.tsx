@@ -9,7 +9,7 @@ interface Props {
     onClose: Function;
 }
 
-export default function ConfirmModal({
+export default function ConfirmStaffModal({
     isOpen,
     title,
     message,

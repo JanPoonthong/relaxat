@@ -1,5 +1,6 @@
 "use client";
-import ConfirmModal from "@/app/modals/ConfirmModal";
+import ConfirmStaffModal from "@/app/modals/ConfirmStaffModal";
+import ConfirmAdminModal from "@/app/modals/ConfirmAdminModal";
 import { useState, useEffect } from "react";
 import AddNewAdminModal from "@/app/manager/components/AddNewAdminModal";
 import AddNewStaffModal from "@/app/manager/components/AddNewStaffModal";
@@ -10,6 +11,9 @@ import { api } from "../../lib/api";
 
 export default function Page() {
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+    const [isConfirmModalOpenAdmin, setIsConfirmModalOpenAdmin] =
+        useState(false);
+
     const [isAddNewAdminModalOpen, setIsNewAdminModalOpen] = useState(false);
     const [isAddNewStaffModalOpen, setIsNewStaffModalOpen] = useState(false);
     const [isAddNewEditStaffModalOpen, setIsNewEditStaffModalOpen] =
@@ -28,6 +32,9 @@ export default function Page() {
 
     const [staffId, setStaffId] = useState(0);
     const [adminId, setAdminId] = useState(0);
+
+    const [removeStaffid, setRemoveStaffId] = useState(null);
+    const [removeAdminid, setRemoveAdminId] = useState(null);
 
     useEffect(() => {
         fetch(`${api}/staff`, {
@@ -89,12 +96,42 @@ export default function Page() {
     if (!branchList) return <p>No profile data</p>;
     if (!categoryData) return <p>No profile data</p>;
 
-    function handleConfirm() {
+    async function handleConfirm() {
+        try {
+            let res = await fetch(`${api}/staff/${removeStaffid}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "69420",
+                },
+            });
+        } catch (err) {
+            console.log(err);
+        }
         setIsConfirmModalOpen(false);
+    }
+
+    async function handleConfirmAdmin() {
+        try {
+            let res = await fetch(`${api}/admins/${removeAdminid}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "69420",
+                },
+            });
+        } catch (err) {
+            console.log(err);
+        }
+        setIsConfirmModalOpenAdmin(false);
     }
 
     function handleCloseConfirmModal() {
         setIsConfirmModalOpen(false);
+    }
+
+    function handleCloseConfirmModalAdmin() {
+        setIsConfirmModalOpenAdmin(false);
     }
 
     async function handleConfirmAddNewAdmin(e: any) {
@@ -345,9 +382,12 @@ export default function Page() {
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <button
-                                                onClick={() =>
-                                                    setIsConfirmModalOpen(true)
-                                                }
+                                                onClick={() => {
+                                                    setIsConfirmModalOpen(true);
+                                                    setRemoveStaffId(
+                                                        each.person_id,
+                                                    );
+                                                }}
                                                 className="font-medium text-red-600 hover:underline"
                                             >
                                                 Delete
@@ -441,9 +481,14 @@ export default function Page() {
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <button
-                                                onClick={() =>
-                                                    setIsConfirmModalOpen(true)
-                                                }
+                                                onClick={() => {
+                                                    setIsConfirmModalOpenAdmin(
+                                                        true,
+                                                    );
+                                                    setRemoveAdminId(
+                                                        each.person_id,
+                                                    );
+                                                }}
                                                 className="font-medium text-red-600 hover:underline"
                                             >
                                                 Delete
@@ -457,12 +502,20 @@ export default function Page() {
                 </div>
             </div>
 
-            <ConfirmModal
+            <ConfirmStaffModal
                 isOpen={isConfirmModalOpen}
                 title={"Delete Confirmation"}
                 message={"Are you sure you want to delete this employee?"}
                 onConfirm={handleConfirm}
                 onClose={handleCloseConfirmModal}
+            />
+
+            <ConfirmAdminModal
+                isOpen={isConfirmModalOpenAdmin}
+                title={"Delete Confirmation"}
+                message={"Are you sure you want to delete this employee?"}
+                onConfirm={handleConfirmAdmin}
+                onClose={handleCloseConfirmModalAdmin}
             />
 
             <AddNewAdminModal
