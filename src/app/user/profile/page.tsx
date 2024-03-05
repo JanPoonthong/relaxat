@@ -95,12 +95,12 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         <div className="bg-gray-200 shadow-md rounded-lg p-6 mb-6">
             <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-bold">{title}</h2>
-                <button
+                {/*<button
                     className="text-gray-500 hover:text-gray-700 focus:outline-none"
                     onClick={onEdit}
                 >
                     Edit
-                </button>
+                </button>*/}
             </div>
             <div>{value}</div>
         </div>
